@@ -19,3 +19,5 @@ Imports:
 RoxygenNote: 7.1.1
 Suggests: 
     testthat
+URL: https://github.com/MyKo101/rando
+BugReports: https://github.com/MyKo101/rando/issues
