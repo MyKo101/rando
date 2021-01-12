@@ -1,0 +1,235 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(rando)
+library(tidyverse)
+```
+
+# rando
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of rando is to provide easier generating of random numbers 
+in a manner that is context aware, and reproducible.
+
+## Installation
+
+You can install the development version of rando from 
+[Github](https://github.com/MyKo101/rando) with:
+
+``` 
+install.packages("remotes")
+install_github("MyKo101/rando")
+```
+
+Once installed, to load `rando`, use
+
+```
+library(rando)
+```
+
+## Example
+
+With rando, generating random numbers becomes incredibly easy, as we 
+do not need to define how many random numbers we need. `rando` will 
+figure out how many you need based on where the number generator is
+being used.
+
+This works for `tibble()` declarations
+
+```{r in-tibble}
+df <- tibble(id = 1:10,
+       x = r_norm())
+df
+```
+
+and inside of `dplyr` verbs
+
+```{r in-mutate}
+mutate(df, y = r_unif())
+```
+
+
+Parameters can also be used to define the number of values to return.
+If parameters are longer than 1, `rando` will try to return the same
+number of random values, unless there is a clash between two of the
+parameters
+
+```{r argument-lengths, error=TRUE}
+r_norm(mean = 1:10)
+r_norm(mean=1:10,sd=1:2)
+```
+If you want to manually define the number of random numbers to be 
+generated, there are two ways to do it. The old fashioned way: 
+providing the `n` argument (this must be named)
+
+```{r explicit-n}
+r_unif(n=20)
+```
+
+Or, if we are generating many random numbers, we can set a default
+`n` value to be used globally
+
+```{r implicit-n}
+set_n(15)
+r_norm(mean=3)
+r_binom(size=3)
+```
+
+## Safer and replicable
+The `rando` functions also check if parameters being supplied are viable
+and throws an informative error if not. This is different to the 
+default `stats`  random number generating functions, which may return
+a lot of `NaN` values with only a vague warning.
+
+```{r sd-error, error=TRUE}
+rnorm(n=10,sd=-1)
+r_norm(sd=-1)
+```
+
+All `rando` functions can also take a `.seed` argument which does one
+of two things:
+
+* If a numeric is supplied, then `rando` will set this as the random 
+seed before generating the values
+* If a TRUE is supplied, then `rando` will randomly generate a 
+numeric value to be used.
+
+If `.seed` is not `NULL` (the default), then this `seed` value 
+(supplied or generated) will be attached to the output, 
+and can be extracted with `pull_seed()`
+
+This allows for greater replicability in results.
+```{r replicable}
+r_norm(.seed = 42)
+r_norm(.seed = 42)
+
+x <- r_norm(.seed=TRUE)
+x
+
+r_norm(.seed=pull_seed(x))
+
+```
+## Blueprints
+
+In order to make simulations easier, `rando` provides the `blueprint()` 
+function. This function creates a plan for a simulated
+dataset using `rando` functions.
+
+```{r blueprint1}
+make_tbl <- blueprint(
+  x = r_norm(),
+  y = r_norm()
+)
+
+make_tbl(n=2)
+
+make_tbl(n=5)
+```
+
+These blueprints can accept additional arguments and will be generated
+based on these arguments
+
+```{r}
+make_tbl2 <- blueprint(
+  x = r_norm(mean=x_mu),
+  y = r_unif(min=y_min,max=y_max)
+)
+
+set_n(10000)
+make_tbl2(x_mu = 10, y_min = -10, y_max=-5) %>%
+  summarise(n = n(), mean_x = mean(x), min_y = min(y), max_y = max(y))
+```
+
+This then allows for quick generation of simulation data using `pmap()`
+and analysis using `map()`
+
+```{r}
+make_sim <- blueprint(
+  x = r_norm(mean = x_mu),
+  y = r_norm(mean = 2*x+10, sd = 2)
+)
+
+tibble(x_mu = r_unif(n = 5, -10, 10)) %>%
+  pmap(make_sim, n = 100) %>%
+  map(lm, formula = y ~ x) %>%
+  map_dfr(broom::tidy)
+
+```
+
+## Distribution Functions
+
+The majority of random number generating functions from the `stats`
+package have been translated into `rando` functions. Be sure to look
+into the documentation for the `rando` functions you use, as some have 
+re-parametrised. Functions names for transitioning from `stats` to 
+`rando` generally follow the same naming convention, that is `r*()` 
+becomes `r_*()`, e.g. `r_norm()` replaces `rnorm()`. The only 
+exceptions are `r_tdist()` and `r_fdist()` to take over the roles of
+`rt()` and `rf()`, respectively. `rando` also includes several new distributions such
+as `r_bern()` and `r_letters()`.
+
+## Arbitrary Distributions
+
+The `r_cdf()` function is a dynamic random number generator.
+It can take any cdf as an argument and produce random numbers with the
+associated distribution.
+
+```{r r_cdf}
+
+my_fun <- function(x,beta=1){
+  if_else(x < 0, 0, 1-exp(-beta*x))
+}
+
+set_n(1000)
+x_data <- r_cdf(my_fun)
+
+hist(x_data,breaks=seq(0,10,0.1))
+
+```
+Any additional arguments used by the function, can be passed to
+`r_cdf()`, and will be used in determining the number of values to
+generate (just as in the other distribution functions above)
+
+```{r}
+r_cdf(my_fun,beta=1:10)
+```
+
+Finally, `purrr`-style functions can be used for `r_cdf()` to allow 
+for even briefer function definitions. These have been extended to 
+allow for the use of additional named arguments to be passed to these
+`<lambda>` functions. Either `.x` or `.t` can be used for the random
+variable.
+
+```{r}
+set_n(20)
+r_cdf(~1-exp(-.x),min=0)
+
+r_cdf(~1-exp(-beta*.x),beta=1:10,min=0,n=10)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

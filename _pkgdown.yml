@@ -1,0 +1,65 @@
+home:
+  title: Context Aware Random Numbers
+  description: Provides random number generating functions that
+    are context aware.
+
+template:
+  opengraph:
+    twitter:
+      creator: "@MyKo101AB"
+      card: summary_large_image
+
+reference:
+  - title: "Blueprinting"
+    desc: "Functions related to blueprinting"
+  - contents:
+    - blueprint
+
+  - title: "Utilities"
+    desc: "Useful assorted functions"
+  - contents:
+    - logit
+    - is_wholenumber
+
+
+  - title: "Seeds and n"
+    desc: "functions for manipulating the seed and n"
+  - contents:
+    - seed
+    - set_n
+
+  - title: "Built-in Functions"
+    desc: "`rando` versions of the built-in R random number generators"
+  - contents:
+    - r_beta
+    - r_binom
+    - r_cauchy
+    - r_chisq
+    - r_exp
+    - r_fdist
+    - r_gamma
+    - r_geom
+    - r_hyper
+    - r_lnorm
+    - r_nbinom
+    - r_norm
+    - r_pois
+    - r_sample
+    - r_tdist
+    - r_unif
+    - r_weibull
+
+  - title: "Simple Extensions Functions"
+    desc: "`rando` simple extension of the built-in functions"
+  - contents:
+    - r_bern
+    - r_letters
+    - r_lgl
+
+  - title: "Evaluation"
+    desc: "Functions relating to the evaluation of expression"
+  - contents:
+    - as_function
+    - extract_dots
+    - match.call2
+

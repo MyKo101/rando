@@ -1,0 +1,22 @@
+Package: rando
+Type: Package
+Title: Context Aware Random Numbers
+Version: 0.1.0
+Authors@R: person(given = "Michael",family="Barrowman",
+                  email="myko101ab@gmail.com",
+                  role=c("cre","aut"))
+Description: Provides random number generating functions that 
+    are much more context aware than the built-in functions.
+License: MIT + file LICENSE
+URL: https://www.michaelbarrowman.co.uk/rando
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    tibble,
+    dplyr,
+    stats,
+    glue,
+    rlang
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat
