@@ -9,7 +9,6 @@ Authors@R:
            email = "myko101ab@gmail.com")
 Description: Provides random number generating functions that
     are much more context aware than the built-in functions.
-Depends: R (>=3.6)
 License: MIT + file LICENSE
 URL: https://github.com/MyKo101/rando
 BugReports: https://github.com/MyKo101/rando/issues
