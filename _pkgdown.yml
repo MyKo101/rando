@@ -14,6 +14,7 @@ reference:
     desc: "Functions related to blueprinting"
   - contents:
     - blueprint
+    - bp_where
 
   - title: "Utilities"
     desc: "Useful assorted functions"
@@ -27,8 +28,21 @@ reference:
   - contents:
     - seed
     - set_n
+    - default_n
 
-  - title: "Built-in Functions"
+  - title: "Arbitrary Distribution Functions"
+    desc: "Distribution Functions for Arbitrary Distributions"
+  - contents:
+    - r_cdf
+
+  - title: "Simple Distribution Functions"
+    desc: "`rando` simple extensions of the built-in functions"
+  - contents:
+    - r_bern
+    - r_letters
+    - r_lgl
+
+  - title: "Built-in Distribution Functions"
     desc: "`rando` versions of the built-in R random number generators"
   - contents:
     - r_beta
@@ -49,17 +63,11 @@ reference:
     - r_unif
     - r_weibull
 
-  - title: "Simple Extensions Functions"
-    desc: "`rando` simple extension of the built-in functions"
-  - contents:
-    - r_bern
-    - r_letters
-    - r_lgl
-
   - title: "Evaluation"
     desc: "Functions relating to the evaluation of expression"
   - contents:
     - as_function
     - extract_dots
     - match.call2
+    - null_switch
 

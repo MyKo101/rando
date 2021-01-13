@@ -10,27 +10,27 @@ match.call2(n = 0, ...)
 \item{n}{How far up the call-stack they would like to extract. The default,
 `n=0` produces the same result as `match.call()` so this can be
 inserted wherever `match.call()` is used.}
+
+\item{...}{Arguments passed on to `match.call()`}
 }
 \description{
 Extends the built-in function `match.call()` by allowing the user
 to specify how far up the call stack they would like to extract.
 }
 \examples{
-f <- function(n){
+f <- function(n) {
   g(n)
 }
 
-g <- function(n){
+g <- function(n) {
   h(n)
 }
 
-h <- function(n){
+h <- function(n) {
   match.call2(n)
 }
 
 f(0)
 f(1)
 f(2)
-
-
 }

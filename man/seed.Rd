@@ -50,8 +50,7 @@ extracted with \code{pull_seed()}
 
 \examples{
 my_seed <- gen_seed()
-
-res <- with_seed(my_seed,r_norm(n=10))
+res <- with_seed(my_seed, r_norm(n = 10))
 res
 pull_seed(res)
 }

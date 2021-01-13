@@ -40,7 +40,5 @@ r_pois(10)
 
 r_pois(1:10)
 
-r_pois(10,n=10)
-
-
+r_pois(10, n = 10)
 }

@@ -10,29 +10,27 @@
 #' @examples
 #'
 #' \dontrun{
-#' f <- function(...){
+#' f <- function(...) {
 #'   a + b
 #' }
 #'
-#' #Throws an error because a and b are trapped inside ...
+#' # Throws an error because a and b are trapped inside ...
 #' f(a = 1, b = 2)
-#'
 #' }
 #'
-#' f <- function(...){
+#' f <- function(...) {
 #'   extract_dots()
 #'   a + b
 #' }
 #' f(a = 1, b = 2)
-#'
-#'
 #' @export
-extract_dots <- function(){
+extract_dots <- function() {
   .pcall <- match.call(sys.function(sys.parent()),
-                       sys.call(sys.parent()),
-                       expand.dots=F,
-                       envir=parent.frame(2L))
+    sys.call(sys.parent()),
+    expand.dots = F,
+    envir = parent.frame(2L)
+  )
   dots <- .pcall[["..."]]
   dots <- dots[names(dots) != ""]
-  list2env(lapply(dots,eval),parent.frame())
+  list2env(lapply(dots, eval, parent.frame(2)), parent.frame())
 }

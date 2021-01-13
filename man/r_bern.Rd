@@ -38,9 +38,7 @@ set_n(5)
 
 r_bern(0.9)
 
-r_bern(seq(0,1,0.1))
+r_bern(seq(0, 1, 0.1))
 
-r_bern(1/4,n=10)
-
-
+r_bern(1 / 4, n = 10)
 }

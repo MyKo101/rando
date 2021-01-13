@@ -36,13 +36,11 @@ Generates a set of F distributed values.
 
 set_n(5)
 
-r_fdist(1,1)
+r_fdist(1, 1)
 
-r_fdist(1:10,2)
+r_fdist(1:10, 2)
 
-r_fdist(10,2)
+r_fdist(10, 2)
 
-r_fdist(10,2,n=10)
-
-
+r_fdist(10, 2, n = 10)
 }

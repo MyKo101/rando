@@ -40,7 +40,5 @@ r_chisq(10)
 
 r_chisq(1:10)
 
-r_chisq(10,n=10)
-
-
+r_chisq(10, n = 10)
 }

@@ -15,15 +15,14 @@
 #'
 #' logit(0.5)
 #'
-#' logit(seq(0.01,0.99,0.01))
-#'
+#' logit(seq(0.01, 0.99, 0.01))
 #' @export
 
-logit <- function(prob,base=exp(1)){
-  check_must_be_strictly_between(prob,0,1)
+logit <- function(prob, base = exp(1)) {
+  check_must_be_strictly_between(prob, 0, 1)
   check_must_be_strictly_positive(base)
-  if(base == 1) error_glue("base cannot be 1 in logit()")
-  log(prob/(1-prob),base=base)
+  if (base == 1) error_glue("base cannot be 1 in logit()")
+  log(prob / (1 - prob), base = base)
 }
 
 #' @rdname logit
@@ -33,12 +32,10 @@ logit <- function(prob,base=exp(1)){
 #'
 #' @examples
 #' invlogit(-10:10)
-#'
 #' @export
-invlogit <- function(alpha,base=exp(1)){
+invlogit <- function(alpha, base = exp(1)) {
   check_must_be_strictly_positive(base)
-  alogb <- alpha*log(base)
+  alogb <- alpha * log(base)
 
-  exp(alogb) / (1+exp(alogb))
-
+  exp(alogb) / (1 + exp(alogb))
 }

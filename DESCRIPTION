@@ -1,23 +1,26 @@
-Package: rando
 Type: Package
+Package: rando
 Title: Context Aware Random Numbers
 Version: 0.1.0
-Authors@R: person(given = "Michael",family="Barrowman",
-                  email="myko101ab@gmail.com",
-                  role=c("cre","aut"))
-Description: Provides random number generating functions that 
+Authors@R: 
+    person(given = "Michael",
+           family = "Barrowman",
+           role = c("cre", "aut"),
+           email = "myko101ab@gmail.com")
+Description: Provides random number generating functions that
     are much more context aware than the built-in functions.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-Imports: 
-    tibble,
-    dplyr,
-    stats,
-    glue,
-    rlang
-RoxygenNote: 7.1.1
-Suggests: 
-    testthat
 URL: https://github.com/MyKo101/rando
 BugReports: https://github.com/MyKo101/rando/issues
+Imports: 
+    dplyr,
+    glue,
+    rlang,
+    stats,
+    tibble
+Suggests: 
+    covr,
+    testthat
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

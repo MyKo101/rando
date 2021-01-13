@@ -21,7 +21,6 @@ vectorised over the input.
 is.integer(2)
 is_wholenumber(2)
 
-is.integer(seq(2,3,0.25))
-is_wholenumber(seq(2,3,0.25))
-
+is.integer(seq(2, 3, 0.25))
+is_wholenumber(seq(2, 3, 0.25))
 }

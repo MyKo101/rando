@@ -39,9 +39,7 @@ set_n(5)
 
 r_geom(0.1)
 
-r_geom(seq(0.1,1,0.1))
+r_geom(seq(0.1, 1, 0.1))
 
-r_geom(0.1,n=10)
-
-
+r_geom(0.1, n = 10)
 }

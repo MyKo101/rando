@@ -5,8 +5,8 @@
 \title{Generate Negative Binomial Distributed Values}
 \usage{
 r_nbinom(
-  r,
-  prob = NULL,
+  r = NULL,
+  prob = 0.5,
   ...,
   mu = NULL,
   n = default_n(r, prob, mu),
@@ -53,11 +53,9 @@ and not the number of _successes_, as in `rnbinom()`, so
 
 set_n(5)
 
-r_nbinom(10,0.5)
+r_nbinom(10, 0.5)
 
-r_nbinom(1:10,mu=2)
+r_nbinom(1:10, mu = 2)
 #'
-r_nbinom(10,0.2,n=10)
-
-
+r_nbinom(10, 0.2, n = 10)
 }

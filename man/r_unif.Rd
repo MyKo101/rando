@@ -38,11 +38,9 @@ set_n(5)
 
 r_unif()
 
-r_unif(1:5,6:10)
+r_unif(1:5, 6:10)
 
-r_unif(1:5,10)
+r_unif(1:5, 10)
 
-r_unif(n=10)
-
-
+r_unif(n = 10)
 }

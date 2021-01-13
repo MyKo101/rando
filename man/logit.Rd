@@ -23,8 +23,6 @@ Calculates the logit or the inverse logit of a value
 
 logit(0.5)
 
-logit(seq(0.01,0.99,0.01))
-
+logit(seq(0.01, 0.99, 0.01))
 invlogit(-10:10)
-
 }

@@ -55,20 +55,17 @@ r_letters(3)
 
 r_letters(1:10)
 
-r_letters(3,n=10)
-
+r_letters(3, n = 10)
 
 r_LETTERS(3)
 
 r_LETTERS(1:10)
 
-r_LETTERS(3,n=10)
-
+r_LETTERS(3, n = 10)
 
 r_Letters(3)
 
 r_Letters(1:10)
 
-r_Letters(3,n=10)
-
+r_Letters(3, n = 10)
 }

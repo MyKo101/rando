@@ -4,7 +4,7 @@
 \alias{as_function}
 \title{Convert to function}
 \usage{
-as_function(x, env = caller_env())
+as_function(x, env = parent.frame())
 }
 \arguments{
 \item{x}{A function or formula, see [rlang::as_function()] for more
@@ -22,11 +22,10 @@ a few extra features
 }
 \examples{
 
-f1 <- as_function(~.t + 1)
+f1 <- as_function(~ .t + 1)
 f1(10)
 
-f2 <- as_function(~.t + x)
+f2 <- as_function(~ .t + x)
 
-f2(10,x=2)
-
+f2(10, x = 2)
 }

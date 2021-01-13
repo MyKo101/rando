@@ -21,18 +21,17 @@ NULL
 #'
 #' @examples
 #' my_seed <- gen_seed()
-#'
-gen_seed <- function() stats::runif(1,1-2^31,2^31-1)
+gen_seed <- function() stats::runif(1, 1 - 2^31, 2^31 - 1)
 
 #' @describeIn  seed Sets the current seed
 #'
 #' @param seed
 #' The random seed to be used
 #'
-#'@export
+#' @export
 
-set_seed <- function(seed){
-  check_must_be_between(seed,1-2^31,2^31-1)
+set_seed <- function(seed) {
+  check_must_be_between(seed, 1 - 2^31, 2^31 - 1)
   set.seed(seed)
 }
 
@@ -49,18 +48,20 @@ set_seed <- function(seed){
 #' @export
 #'
 #' @examples
-#' res <- with_seed(my_seed,r_norm(n=10))
+#' res <- with_seed(my_seed, r_norm(n = 10))
 #' res
-with_seed <- function(seed,expression){
+with_seed <- function(seed, expression) {
   .expression <- substitute(expression)
-  if(is.null(seed)){
+  if (is.null(seed)) {
     eval.parent(.expression)
   } else {
-    if(is.logical(seed) && isTRUE(seed)){
+    if (is.logical(seed) && isTRUE(seed)) {
       seed <- gen_seed()
-    } else if(!is.numeric(seed)){
-      error_glue("Non-compatible random .seed provided.",
-                 ".seed must be either TRUE or numeric")
+    } else if (!is.numeric(seed)) {
+      error_glue(
+        "Non-compatible .seed provided.",
+        "It must be either TRUE or numeric"
+      )
     }
     set_seed(seed)
     structure(
@@ -82,4 +83,4 @@ with_seed <- function(seed,expression){
 #'
 #' @examples
 #' pull_seed(res)
-pull_seed <- function(x) attr(x,"seed")
+pull_seed <- function(x) attr(x, "seed")

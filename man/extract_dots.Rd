@@ -13,20 +13,17 @@ function by attaching them to the function's environment
 \examples{
 
 \dontrun{
-f <- function(...){
+f <- function(...) {
   a + b
 }
 
-#Throws an error because a and b are trapped inside ...
+# Throws an error because a and b are trapped inside ...
 f(a = 1, b = 2)
-
 }
 
-f <- function(...){
+f <- function(...) {
   extract_dots()
   a + b
 }
 f(a = 1, b = 2)
-
-
 }

@@ -18,18 +18,18 @@
 #'
 #' r_bern(0.9)
 #'
-#' r_bern(seq(0,1,0.1))
+#' r_bern(seq(0, 1, 0.1))
 #'
-#' r_bern(1/4,n=10)
-#'
-#'
+#' r_bern(1 / 4, n = 10)
 #' @export
-r_bern <- function(prob=0.5,...,n=default_n(prob),.seed=NULL){
+r_bern <- function(prob = 0.5, ..., n = default_n(prob), .seed = NULL) {
   check_n(n)
-  check_must_be_between(prob,0,1)
+  check_must_be_between(prob, 0, 1)
 
-  if(!is.null(.seed)) set.seed(.seed)
-  stats::rbinom(n=n,size=1,prob=prob)
+  with_seed(
+    .seed,
+    stats::rbinom(n = n, size = 1, prob = prob)
+  )
 }
 
 
@@ -51,19 +51,17 @@ r_bern <- function(prob=0.5,...,n=default_n(prob),.seed=NULL){
 #'
 #' r_lgl(0.9)
 #'
-#' r_lgl(seq(0,1,0.1))
+#' r_lgl(seq(0, 1, 0.1))
 #'
-#' r_lgl(1/4,n=10)
-#'
-#'
+#' r_lgl(1 / 4, n = 10)
 #' @export
-r_lgl <- function(prob=0.5,...,n=default_n(prob),.seed=NULL){
+r_lgl <- function(prob = 0.5, ..., n = default_n(prob), .seed = NULL) {
   check_n(n)
-  check_must_be_between(prob,0,1)
+  check_must_be_between(prob, 0, 1)
 
   with_seed(
     .seed,
-    stats::rbinom(n=n,size=1,prob=prob) == 1
+    stats::rbinom(n = n, size = 1, prob = prob) == 1
   )
 }
 
@@ -95,28 +93,19 @@ NULL
 #'
 #' r_letters(1:10)
 #'
-#' r_letters(3,n=10)
-#'
+#' r_letters(3, n = 10)
 #' @export
-r_letters <- function(nchar=1,...,n=default_n(nchar),.seed=NULL){
+r_letters <- function(nchar = 1, ..., n = default_n(nchar), .seed = NULL) {
   check_n(n)
   check_must_be_integer(nchar)
   check_must_be_positive(nchar)
 
-  if(length(nchar) != 1 && length(nchar) != n)
-    error_glue("length of nchar is incompatible with context")
-
-  if(length(nchar) != n){
-    nchar <- rep(nchar,n)
-  }
-
   with_seed(
     .seed,
-    vapply(
-      lapply(nchar,sample,x=base::letters,replace=T),
-      paste0,
-      collapse="",
-      character(1))
+    letter_sample(letters,
+      nchar = nchar,
+      n = n
+    )
   )
 }
 
@@ -128,28 +117,19 @@ r_letters <- function(nchar=1,...,n=default_n(nchar),.seed=NULL){
 #'
 #' r_LETTERS(1:10)
 #'
-#' r_LETTERS(3,n=10)
-#'
+#' r_LETTERS(3, n = 10)
 #' @export
-r_LETTERS <- function(nchar=1,...,n=default_n(nchar),.seed=NULL){
+r_LETTERS <- function(nchar = 1, ..., n = default_n(nchar), .seed = NULL) {
   check_n(n)
   check_must_be_integer(nchar)
   check_must_be_positive(nchar)
 
-  if(length(nchar) != 1 && length(nchar) != n)
-    error_glue("length of nchar is incompatible with context")
-
-  if(length(nchar) != n){
-    nchar <- rep(nchar,n)
-  }
-
   with_seed(
     .seed,
-    vapply(
-      lapply(nchar,sample,x=base::LETTERS,replace=T),
-      paste0,
-      collapse="",
-      character(1))
+    letter_sample(LETTERS,
+      nchar = nchar,
+      n = n
+    )
   )
 }
 
@@ -161,27 +141,31 @@ r_LETTERS <- function(nchar=1,...,n=default_n(nchar),.seed=NULL){
 #'
 #' r_Letters(1:10)
 #'
-#' r_Letters(3,n=10)
-#'
+#' r_Letters(3, n = 10)
 #' @export
-r_Letters <- function(nchar=1,...,n=default_n(nchar),.seed=NULL){
+r_Letters <- function(nchar = 1, ..., n = default_n(nchar), .seed = NULL) {
   check_n(n)
   check_must_be_integer(nchar)
   check_must_be_positive(nchar)
 
-  if(length(nchar) != 1 && length(nchar) != n)
-    error_glue("length of nchar is incompatible with context")
-
-  if(length(nchar) != n){
-    nchar <- rep(nchar,n)
-  }
-
   with_seed(
     .seed,
-    vapply(
-      lapply(nchar,sample,x=c(base::letters,base::LETTERS),replace=T),
-      paste0,
-      collapse="",
-      character(1))
+    letter_sample(c(letters, LETTERS),
+      nchar = nchar,
+      n = n
+    )
+  )
+}
+
+
+letter_sample <- function(x, nchar, n) {
+  if (length(nchar) != n) {
+    nchar <- rep(nchar, n)
+  }
+  vapply(
+    lapply(nchar, sample, x = x, replace = T),
+    paste0,
+    collapse = "",
+    character(1)
   )
 }

@@ -47,11 +47,9 @@ Generates a set of Hypergeometric distributed values.
 
 set_n(5)
 
-r_hyper(10,5,5)
+r_hyper(10, 5, 5)
 
-r_hyper(10:20,10,5)
+r_hyper(10:20, 10, 5)
 
-r_hyper(10,5,5,n=10)
-
-
+r_hyper(10, 5, 5, n = 10)
 }

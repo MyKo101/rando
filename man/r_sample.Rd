@@ -39,12 +39,11 @@ Generates a Sample from a set, with replacement
 
 set_n(15)
 
-r_sample(c("blue","red","yellow"))
+r_sample(c("blue", "red", "yellow"))
 
-r_sample(c("blue","red","yellow"),
-         weights=c(1,5,1))
+r_sample(c("blue", "red", "yellow"),
+  weights = c(1, 5, 1)
+)
 
-r_sample(c("blue","red","yellow"),n=10)
-
-
+r_sample(c("blue", "red", "yellow"), n = 10)
 }

@@ -3,28 +3,17 @@
 #' @title Set the default value for n
 #'
 #' @description
-#' This function sets the default value for n, the number of random
-#' numbers to generate. If n is not specified nor implied by context,
-#' this is the default value that will be used.
-#'
+#' Set and get the global value for n
 #'
 #' @param n
 #' value to set as the default n for random number generating
 #'
 #' @examples
 #' set_n(100)
-#'
-#' length(r_norm())
-#'
-#' set_n(10)
-#' length(r_norm())
-#'
 #' @export
 #'
-#'
-#'
-set_n <- function(n){
-  if(is.null(n)){
+set_n <- function(n) {
+  if (is.null(n)) {
     options(rando.n = NULL)
   } else {
     check_n(n)
@@ -35,82 +24,122 @@ set_n <- function(n){
 
 #' @rdname set_n
 #'
+#' @examples
+#' get_n()
+#' @export
+get_n <- function() {
+  getOption("rando.n")
+}
+
+
+
+
+#' @name default_n
+#'
+#' @title Find the Default value for n in Context
+#'
+#' @description
+#' Checks for various information surrounding the call to this function
+#' to figure out what value for n should be used
+#'
 #' @param ...
-#' parameters passed from random number generating functions
+#' parameters to check the length of
 #'
-#' @details
-#' The \code{default_n()} function looks for a possible value for
-#' \code{n} in multiple places, in order, these locations are:
 #'
-#' 1. Assesses whether it is being called in a \code{tibble()} call and
-#'    calculate how many rows the are being generated.
-#'
-#' 2. If this fails, it checks for a value of \code{dplyr::n()},
-#'    which returns the number of rows of the current data structure
-#'    if we are inside a \code{dplyr} verb, such as [dplyr::mutate()]
-#'
-#' 3. If parameters supplied to \code{default_n()}, then the length of
-#'    these arguments will be used to define \code{n}
-#'
-#' 4. The last check is to see if \code{set_n()} has defined a default
-#'    \code{n} to be used globally.
+
+NULL
+
+#' @describeIn default_n Checks for the default value of n in a
+#' context aware manner.
 #'
 #' @examples
 #' default_n()
-#'
-#'
+#' tibble::tibble(id = 1:3, n = default_n())
+#' df <- tibble::tibble(id = 1:4)
+#' dplyr::mutate(df, n = default_n())
+#' default_n(1:5)
+#' set_n(10)
+#' default_n()
 #' @export
-default_n <- function(...){
+default_n <- function(...) {
+  con_n <- null_switch(
+    tibble_n(),
+    dplyr_n(),
+    1
+  )
 
+  arg_n <- args_n(...)
+
+  n_list <- c(con_n, arg_n)
+
+  if (all(n_list == 1)) {
+    null_switch(get_n(), 1)
+  } else {
+    n_list <- n_list[n_list != 1]
+    n <- unique(n_list)
+    if (length(n) > 1) {
+      err_fun <- deparse1(sys.call(sys.parent())[[1]])
+      error_glue("Inconsistent parameter lengths supplied to {err_fun}()")
+    }
+    n
+  }
+}
+
+#' @describeIn default_n If we are inside of a call to  \code{tibble()},
+#'  it returns the number of rows in the \code{tibble}, otherwise
+#'  \code{NULL}
+#' @examples
+#' tibble::tibble(id = 1:3, n = tibble_n())
+#' @export
+
+tibble_n <- function() {
   .calls <- sys.calls()
-  .calls_1 <- lapply(.calls,`[[`,1)
-  .calls_names <- vapply(.calls_1,deparse1,character(1))
+  .calls_1 <- lapply(.calls, `[[`, 1)
+  .calls_names <- vapply(.calls_1, deparse1, character(1))
 
-  args <- list(...)
-  args <- args[!vapply(args,is.null,logical(1))]
-
-  # Checks if we are evaluating inside a tibble declaration
-  n <- if("tibble_quos" %in% .calls_names){
+  if ("tibble_quos" %in% .calls_names) {
     .tibble_env <- sys.frame(which("tibble_quos" == .calls_names))
-    if("current_size" %in% names(.tibble_env)){
+    if ("current_size" %in% names(.tibble_env)) {
       cs <- .tibble_env[["current_size"]]
-    } else{
+    } else {
       cs <- .tibble_env[["first_size"]]
     }
-
-    if(!is.null(cs) && cs > 1) cs else NULL
-  } else NULL
-
-  #If not, checks if we are inside a dplyr verb
-  if(is.null(n)){
-    n <- tryCatch(dplyr::n(),error=function(e) NULL)
+    if (!is.null(cs) && cs > 1) cs else NULL
+  } else {
+    NULL
   }
+}
 
-  #If not, get the length of the other arguments
-  if(is.null(n) && length(args)>0){
-    n_list <- vapply(args,length,numeric(1))
-    if(all(n_list == 1)){
-      n <- NULL
-    } else{
-      n_list <- n_list[n_list != 1]
-      n <- unique(n_list)
-      if(length(n) > 1){
-        err_fun <- .calls_names[[length(.calls_names)-2]]
-        error_glue("Inconsistent parameter lengths supplied to {err_fun}()")
-      }
 
-    }
+#' @describeIn default_n If we are in \code{dplyr} verb function, it
+#' returns the number of rows in the current data, otherwise \code{NULL}
+#' @examples
+#' dplyr::mutate(df, n = dplyr_n())
+#' @export
+
+dplyr_n <- function() {
+  tryCatch(dplyr::n(), error = function(e) NULL)
+}
+
+
+#' @describeIn default_n Checks the lengths of the non-\code{NULL}
+#' arguments passed to it. Errors if they are inconsistent.
+#'
+#' @examples
+#' args_n(1:3)
+#' \dontrun{
+#' args_n(1:3, 1:4)
+#' }
+#'
+#' @export
+
+
+args_n <- function(...) {
+  args <- list(...)
+  args <- args[!vapply(args, is.null, logical(1))]
+  if (length(args) > 0) {
+    vapply(args, NROW, numeric(1))
+  } else {
+    1
   }
-
-  #If not, get the default value as set by set_n()
-  if(is.null(n)){
-    n <- getOption("rando.n")
-  }
-
-  if(is.null(n)){
-    n <- 1
-  }
-
-  n
-
 }

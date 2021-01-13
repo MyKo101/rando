@@ -15,9 +15,11 @@ library(rando)
 library(tidyverse)
 ```
 
-# rando
+# rando <img src='man/figures/logo.svg' align="right" height="139" />
 
 <!-- badges: start -->
+[![R build status](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
+[![Codecov test coverage](https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg)](https://codecov.io/gh/MyKo101/rando?branch=master)
 <!-- badges: end -->
 
 The goal of rando is to provide easier generating of random numbers 
@@ -221,6 +223,9 @@ r_cdf(~1-exp(-beta*.x),beta=1:10,min=0,n=10)
 
 
 
+## Code of Conduct
+
+Please note that the rando project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 
 

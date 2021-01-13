@@ -71,11 +71,11 @@ set_n(5)
 
 r_weibull(10)
 
-r_weibull(1:10,2)
+r_weibull(1:10, 2)
 
-r_weibull(10,2)
+r_weibull(1:10, scale = 2)
+r_weibull(1:10, b_scale = 2)
+r_weibull(1:10, B_scale = 2)
 
-r_weibull(10,2,n=10)
-
-
+r_weibull(10, 2, n = 10)
 }

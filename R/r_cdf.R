@@ -33,67 +33,71 @@
 #'
 #' set_n(5)
 #'
-#' my_fun <- function(x,beta=1){
-#'   1-exp(-beta*x)
+#' my_fun <- function(x, beta = 1) {
+#'   1 - exp(-beta * x)
 #' }
 #'
 #' r_cdf(my_fun)
 #'
 #'
-#' r_cdf(~1-exp(-.x),min=0)
+#' r_cdf(~ 1 - exp(-.x), min = 0)
 #'
-#' r_cdf(~1-exp(-.x*beta),beta=1:10,min=0)
-#'
-#'
-#'
+#' r_cdf(~ 1 - exp(-.x * beta), beta = 1:10, min = 0)
 #' @export
-r_cdf <- function(Fun,min=-Inf,max=Inf,...,data=NULL,n=default_n(...,data[[1]]),.seed=NULL){
+r_cdf <- function(Fun, min = -Inf, max = Inf, ..., data = NULL, n = default_n(..., data), .seed = NULL) {
   check_n(n)
 
-  if(!is.null(data) && !is.data.frame(data)){
-    data <- as.data.frame(data)
+  dots <- list(...)
+  if (!is.null(data)) {
+    dots <- c(dots, as.list(data))
   }
 
-  dots <- c(list(...),as.list(data))
   dots <- dots[names(dots) != ""]
-
-
 
   with_seed(
     .seed,
-    invert_Fun(u = stats::runif(n=n,min=0,max=1),
-               Fun = Fun,
-               min = min,
-               max = max,
-               args = dots)
+    invert_Fun(
+      u = stats::runif(n = n, min = 0, max = 1),
+      Fun = Fun,
+      min = min,
+      max = max,
+      args = dots
+    )
   )
 }
 
-invert_Fun <- function(u,Fun,min,max,args=NULL){
-  list2env(args,environment())
-
-
+invert_Fun <- function(u, Fun, min, max, args = NULL) {
   .Fun <- as_function(Fun)
+  .Fun_call <- as.call(c(quote(.Fun), quote(.est)))
 
-  .Fun_call <- as.call(c(quote(.Fun),quote(.est),args))
+  if (length(args) > 0) {
+    list2env(args, environment())
+    arg_nms <- names(args)
+
+    if (length(args) > 0) {
+      for (i in 1:length(args)) {
+        .Fun_call[[arg_nms[i]]] <- str2lang(arg_nms[i])
+      }
+    }
+  }
+
   n_out <- length(u)
 
-  lower_bound <- if(is.infinite(min)) {
-    invert_Fun_lower_bound(u,.Fun,args)
+  lower_bound <- if (is.infinite(min)) {
+    invert_Fun_find_bound(u, .Fun, args, "lower")
   } else {
-    rep(min,n_out)
+    rep(min, n_out)
   }
 
-  upper_bound <- if(is.infinite(max)) {
-    invert_Fun_upper_bound(u,.Fun,args)
+  upper_bound <- if (is.infinite(max)) {
+    invert_Fun_find_bound(u, .Fun, args, "upper")
   } else {
-    rep(max,n_out)
+    rep(max, n_out)
   }
 
 
-  while(any(upper_bound - lower_bound > 10^(-5)))
-  {
-    .est <- (lower_bound + upper_bound)/2
+  while (any(upper_bound - lower_bound > 10^(-5))) {
+    .est <- (lower_bound + upper_bound) / 2
 
     current_u <- eval(.Fun_call)
 
@@ -101,62 +105,45 @@ invert_Fun <- function(u,Fun,min,max,args=NULL){
 
     lower_bound[too_low] <- .est[too_low]
     upper_bound[!too_low] <- .est[!too_low]
-
   }
 
   .est
-
 }
 
-invert_Fun_lower_bound <- function(u,.Fun,args){
-  list2env(args,environment())
-  .Fun_call <- as.call(c(quote(.Fun),quote(.est),args))
+
+invert_Fun_find_bound <- function(u, .Fun, args, type = c("upper", "lower")) {
+  .Fun_call <- as.call(c(quote(.Fun), quote(.est)))
+
+  if (length(args) > 0) {
+    list2env(args, environment())
+    arg_nms <- names(args)
+    args_i <- lapply(paste0(arg_nms, "[not_done]"), str2lang)
+    for (i in 1:length(arg_nms)) {
+      .Fun_call[[i + 2]] <- args_i[[i]]
+      names(.Fun_call)[i + 2] <- arg_nms[i]
+    }
+  }
+
 
   n_out <- length(u)
-  lower_bound <- rep(0,n_out)
-  not_done <- rep(TRUE,n_out)
+  bound <- rep(0, n_out)
+  not_done <- rep(TRUE, n_out)
 
-  while(any(not_done))
-  {
-    .est <- lower_bound[not_done]
+  while (any(not_done)) {
+    .est <- bound[not_done]
 
     current_u <- eval(.Fun_call)
 
-    too_high <- u[not_done] < current_u
+    if (type == "upper") {
+      out_of_bound <- current_u < u[not_done]
+      bound[not_done][out_of_bound] <- bound[not_done][out_of_bound] + 100
+    } else {
+      out_of_bound <- u[not_done] < current_u
+      bound[not_done][out_of_bound] <- bound[not_done][out_of_bound] - 100
+    }
 
-    lower_bound[not_done][too_high] <- lower_bound[not_done][too_high] - 100
-    not_done[not_done] <- not_done[not_done] & too_high
+    not_done[not_done] <- not_done[not_done] & out_of_bound
   }
 
-  lower_bound
+  bound
 }
-
-invert_Fun_upper_bound <- function(u,.Fun,args){
-  list2env(args,environment())
-  .Fun_call <- as.call(c(quote(.Fun),quote(.est),args))
-
-  n_out <- length(u)
-  upper_bound <- rep(0,n_out)
-  not_done <- rep(TRUE,n_out)
-
-  while(any(not_done))
-  {
-    .est <- upper_bound[not_done]
-
-    current_u <- eval(.Fun_call)
-
-
-    too_low <- current_u < u[not_done]
-
-    upper_bound[not_done][too_low] <- upper_bound[not_done][too_low] + 100
-    not_done[not_done] <- not_done[not_done] & too_low
-  }
-
-  upper_bound
-}
-
-cat0 <- function(...){
-  cat("\n",...,"\n")
-}
-
-

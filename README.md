@@ -1,10 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rando
+# rando <img src='man/figures/logo.svg' align="right" height="139" />
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg)](https://codecov.io/gh/MyKo101/rando?branch=master)
 <!-- badges: end -->
 
 The goal of rando is to provide easier generating of random numbers in a
@@ -35,18 +39,18 @@ df <- tibble(id = 1:10,
        x = r_norm())
 df
 #> # A tibble: 10 x 2
-#>       id       x
-#>    <int>   <dbl>
-#>  1     1  0.212 
-#>  2     2 -0.184 
-#>  3     3  0.995 
-#>  4     4 -2.51  
-#>  5     5  0.0984
-#>  6     6  0.148 
-#>  7     7 -0.610 
-#>  8     8  2.06  
-#>  9     9  0.454 
-#> 10    10  0.842
+#>       id        x
+#>    <int>    <dbl>
+#>  1     1 -0.717  
+#>  2     2  0.786  
+#>  3     3 -0.751  
+#>  4     4  0.195  
+#>  5     5 -0.575  
+#>  6     6 -0.708  
+#>  7     7  0.00443
+#>  8     8 -0.940  
+#>  9     9  1.35   
+#> 10    10 -0.684
 ```
 
 and inside of `dplyr` verbs
@@ -54,18 +58,18 @@ and inside of `dplyr` verbs
 ``` r
 mutate(df, y = r_unif())
 #> # A tibble: 10 x 3
-#>       id       x      y
-#>    <int>   <dbl>  <dbl>
-#>  1     1  0.212  0.218 
-#>  2     2 -0.184  0.555 
-#>  3     3  0.995  0.162 
-#>  4     4 -2.51   0.272 
-#>  5     5  0.0984 0.0326
-#>  6     6  0.148  0.767 
-#>  7     7 -0.610  0.959 
-#>  8     8  2.06   0.0217
-#>  9     9  0.454  0.765 
-#> 10    10  0.842  0.637
+#>       id        x       y
+#>    <int>    <dbl>   <dbl>
+#>  1     1 -0.717   0.160  
+#>  2     2  0.786   0.849  
+#>  3     3 -0.751   0.248  
+#>  4     4  0.195   0.290  
+#>  5     5 -0.575   0.742  
+#>  6     6 -0.708   0.466  
+#>  7     7  0.00443 0.275  
+#>  8     8 -0.940   0.987  
+#>  9     9  1.35    0.754  
+#> 10    10 -0.684   0.00774
 ```
 
 Parameters can also be used to define the number of values to return. If
@@ -74,8 +78,8 @@ of random values, unless there is a clash between two of the parameters
 
 ``` r
 r_norm(mean = 1:10)
-#>  [1]  1.2896598  0.3527586  2.9064705  3.8356935  5.0600484  4.8273534
-#>  [7]  6.9220311  8.3219098  9.5058378 11.2538027
+#>  [1]  1.646460  1.426851  2.390095  3.919675  5.738230  7.006514  6.758490
+#>  [8]  6.825054  9.793100 10.373449
 r_norm(mean=1:10,sd=1:2)
 #> Error: Inconsistent parameter lengths supplied to r_norm()
 ```
@@ -86,10 +90,10 @@ the `n` argument (this must be named)
 
 ``` r
 r_unif(n=20)
-#>  [1] 0.31299378 0.80187044 0.49039059 0.90310318 0.11618870 0.11635371
-#>  [7] 0.20987844 0.96378104 0.60710616 0.52749422 0.58874491 0.06279577
-#> [13] 0.70250580 0.39076993 0.68746817 0.81769994 0.99940423 0.88487638
-#> [19] 0.90447978 0.01576740
+#>  [1] 0.073736296 0.694316115 0.126838400 0.389872381 0.744243355 0.417200313
+#>  [7] 0.983483450 0.977667520 0.069352079 0.566053953 0.003966586 0.500302361
+#> [13] 0.548635787 0.657779980 0.770831601 0.171120996 0.838838250 0.879830294
+#> [19] 0.620431531 0.858520843
 ```
 
 Or, if we are generating many random numbers, we can set a default `n`
@@ -98,10 +102,10 @@ value to be used globally
 ``` r
 set_n(15)
 r_norm(mean=3)
-#>  [1] 1.586960 2.423366 2.929373 3.318461 2.328102 3.538291 2.778487 1.899843
-#>  [9] 1.383405 2.272007 3.430686 3.409999 3.368543 1.669719 3.335746
+#>  [1] 3.850911 1.233965 3.270736 2.466382 1.436930 3.596642 3.175772 3.177666
+#>  [9] 2.649025 2.103756 3.075654 2.548388 5.053156 3.033173 3.193646
 r_binom(size=3)
-#>  [1] 2 0 2 1 1 2 1 1 3 1 1 1 3 1 2
+#>  [1] 2 3 3 0 1 2 3 1 0 1 1 2 1 3 1
 ```
 
 ## Safer and replicable
@@ -297,3 +301,10 @@ r_cdf(~1-exp(-beta*.x),beta=1:10,min=0,n=10)
 #>  [1] 0.892275572 0.172501802 0.160342455 0.432735682 0.299936533 0.004011393
 #>  [7] 0.133234262 0.150531530 0.004047155 0.426167250
 ```
+
+## Code of Conduct
+
+Please note that the rando project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

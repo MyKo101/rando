@@ -40,11 +40,9 @@ set_n(5)
 
 r_norm(10)
 
-r_norm(10,2)
+r_norm(10, 2)
 
 r_norm(1:10)
 
-r_norm(-2,n=10)
-
-
+r_norm(-2, n = 10)
 }

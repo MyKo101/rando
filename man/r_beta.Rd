@@ -36,11 +36,9 @@ Generates a set of Beta distributed values.
 
 set_n(5)
 
-r_beta(1,1)
+r_beta(1, 1)
 
-r_beta(1:10,2)
+r_beta(1:10, 2)
 
-r_beta(1,2,n=10)
-
-
+r_beta(1, 2, n = 10)
 }

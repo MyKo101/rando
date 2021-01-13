@@ -40,7 +40,5 @@ r_tdist(10)
 
 r_tdist(1:10)
 
-r_tdist(10,n=10)
-
-
+r_tdist(10, n = 10)
 }

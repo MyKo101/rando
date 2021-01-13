@@ -10,7 +10,7 @@ r_cdf(
   max = Inf,
   ...,
   data = NULL,
-  n = default_n(..., data[[1]]),
+  n = default_n(..., data),
   .seed = NULL
 )
 }
@@ -57,17 +57,14 @@ arguments in `...` if a different positional argument is wanted.
 
 set_n(5)
 
-my_fun <- function(x,beta=1){
-  1-exp(-beta*x)
+my_fun <- function(x, beta = 1) {
+  1 - exp(-beta * x)
 }
 
 r_cdf(my_fun)
 
 
-r_cdf(~1-exp(-.x),min=0)
+r_cdf(~ 1 - exp(-.x), min = 0)
 
-r_cdf(~1-exp(-.x*beta),beta=1:10,min=0)
-
-
-
+r_cdf(~ 1 - exp(-.x * beta), beta = 1:10, min = 0)
 }

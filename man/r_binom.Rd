@@ -42,9 +42,7 @@ r_binom(10)
 
 r_binom(1:10)
 
-r_binom(10,0.2)
+r_binom(10, 0.2)
 
-r_binom(1,0.2,n=10)
-
-
+r_binom(1, 0.2, n = 10)
 }

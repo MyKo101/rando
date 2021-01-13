@@ -48,9 +48,7 @@ r_cauchy(10)
 
 r_cauchy(1:10)
 
-r_cauchy(10,2)
+r_cauchy(10, 2)
 
-r_cauchy(10,2,n=10)
-
-
+r_cauchy(10, 2, n = 10)
 }

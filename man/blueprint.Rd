@@ -2,12 +2,17 @@
 % Please edit documentation in R/blueprint.R
 \name{blueprint}
 \alias{blueprint}
-\title{Blueprint a Population}
+\alias{is_blueprint}
+\title{Blueprint a Dataset}
 \usage{
 blueprint(...)
+
+is_blueprint(bp)
 }
 \arguments{
 \item{...}{arguments used to generate the blueprint}
+
+\item{bp}{Obj to check}
 }
 \value{
 a function which can produce a tibble based on the provided
@@ -22,17 +27,15 @@ make_tbl <- blueprint(
   y = r_norm()
 )
 
-make_tbl(n=2)
+make_tbl(n = 2)
 
-make_tbl(n=5)
+make_tbl(n = 5)
 
 make_tbl2 <- blueprint(
-  x = r_norm(mean=x_mu),
-  y = r_unif(min=y_min,max=y_max)
+  x = r_norm(mean = x_mu),
+  y = r_unif(min = y_min, max = y_max)
 )
 
-make_tbl2(x_mu = 10, y_min = -10, y_max=-5)
-
-
-
+make_tbl2(x_mu = 10, y_min = -10, y_max = -5)
+is_blueprint(make_tbl)
 }

@@ -57,11 +57,9 @@ set_n(5)
 
 r_gamma(10)
 
-r_gamma(1:10,scale=2)
-r_gamma(1:10,rate=1/2)
-r_gamma(1:10,mean=5)
+r_gamma(1:10, scale = 2)
+r_gamma(1:10, rate = 1 / 2)
+r_gamma(1:10, mean = 5)
 
-r_gamma(10,n=10)
-
-
+r_gamma(10, n = 10)
 }
