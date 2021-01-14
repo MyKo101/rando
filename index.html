@@ -102,56 +102,57 @@
        x <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">df</span>
 <span class="co">#&gt; # A tibble: 10 x 2</span>
-<span class="co">#&gt;       id        x</span>
-<span class="co">#&gt;    &lt;int&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 -0.717  </span>
-<span class="co">#&gt;  2     2  0.786  </span>
-<span class="co">#&gt;  3     3 -0.751  </span>
-<span class="co">#&gt;  4     4  0.195  </span>
-<span class="co">#&gt;  5     5 -0.575  </span>
-<span class="co">#&gt;  6     6 -0.708  </span>
-<span class="co">#&gt;  7     7  0.00443</span>
-<span class="co">#&gt;  8     8 -0.940  </span>
-<span class="co">#&gt;  9     9  1.35   </span>
-<span class="co">#&gt; 10    10 -0.684</span></code></pre></div>
+<span class="co">#&gt;       id       x</span>
+<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1  0.550 </span>
+<span class="co">#&gt;  2     2 -0.936 </span>
+<span class="co">#&gt;  3     3 -0.925 </span>
+<span class="co">#&gt;  4     4  1.52  </span>
+<span class="co">#&gt;  5     5  0.783 </span>
+<span class="co">#&gt;  6     6  0.880 </span>
+<span class="co">#&gt;  7     7 -0.0108</span>
+<span class="co">#&gt;  8     8  1.18  </span>
+<span class="co">#&gt;  9     9 -0.937 </span>
+<span class="co">#&gt; 10    10  1.65</span></code></pre></div>
 <p>and inside of <code>dplyr</code> verbs</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mutate</span><span class="op">(</span><span class="va">df</span>, y <span class="op">=</span> <span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;       id        x       y</span>
-<span class="co">#&gt;    &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 -0.717   0.160  </span>
-<span class="co">#&gt;  2     2  0.786   0.849  </span>
-<span class="co">#&gt;  3     3 -0.751   0.248  </span>
-<span class="co">#&gt;  4     4  0.195   0.290  </span>
-<span class="co">#&gt;  5     5 -0.575   0.742  </span>
-<span class="co">#&gt;  6     6 -0.708   0.466  </span>
-<span class="co">#&gt;  7     7  0.00443 0.275  </span>
-<span class="co">#&gt;  8     8 -0.940   0.987  </span>
-<span class="co">#&gt;  9     9  1.35    0.754  </span>
-<span class="co">#&gt; 10    10 -0.684   0.00774</span></code></pre></div>
+<span class="co">#&gt;       id       x      y</span>
+<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1  0.550  0.0670</span>
+<span class="co">#&gt;  2     2 -0.936  0.192 </span>
+<span class="co">#&gt;  3     3 -0.925  0.492 </span>
+<span class="co">#&gt;  4     4  1.52   0.537 </span>
+<span class="co">#&gt;  5     5  0.783  0.904 </span>
+<span class="co">#&gt;  6     6  0.880  0.0498</span>
+<span class="co">#&gt;  7     7 -0.0108 0.267 </span>
+<span class="co">#&gt;  8     8  1.18   0.886 </span>
+<span class="co">#&gt;  9     9 -0.937  0.0680</span>
+<span class="co">#&gt; 10    10  1.65   0.711</span></code></pre></div>
 <p>Parameters can also be used to define the number of values to return. If parameters are longer than 1, <code>rando</code> will try to return the same number of random values, unless there is a clash between two of the parameters</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  1.646460  1.426851  2.390095  3.919675  5.738230  7.006514  6.758490</span>
-<span class="co">#&gt;  [8]  6.825054  9.793100 10.373449</span>
+<span class="co">#&gt;  [1] -0.4737601  1.3827246  3.0187651  3.9872645  4.7401211  8.1290709</span>
+<span class="co">#&gt;  [7]  9.1659588  7.9588496  8.3890046  8.7587110</span>
 <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,sd<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Error: Inconsistent parameter lengths supplied to r_norm()</span></code></pre></div>
 <p>If you want to manually define the number of random numbers to be generated, there are two ways to do it. The old fashioned way: providing the <code>n</code> argument (this must be named)</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 0.073736296 0.694316115 0.126838400 0.389872381 0.744243355 0.417200313</span>
-<span class="co">#&gt;  [7] 0.983483450 0.977667520 0.069352079 0.566053953 0.003966586 0.500302361</span>
-<span class="co">#&gt; [13] 0.548635787 0.657779980 0.770831601 0.171120996 0.838838250 0.879830294</span>
-<span class="co">#&gt; [19] 0.620431531 0.858520843</span></code></pre></div>
+<span class="co">#&gt;  [1] 0.54902280 0.43830205 0.69493018 0.52395062 0.95745979 0.51598220</span>
+<span class="co">#&gt;  [7] 0.07410938 0.99425926 0.81997273 0.06844705 0.31360466 0.74898317</span>
+<span class="co">#&gt; [13] 0.42491262 0.38696562 0.29960180 0.16743854 0.30876514 0.62888848</span>
+<span class="co">#&gt; [19] 0.36905385 0.81999770</span></code></pre></div>
 <p>Or, if we are generating many random numbers, we can set a default <code>n</code> value to be used globally</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/set_n.html">set_n</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
 <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 3.850911 1.233965 3.270736 2.466382 1.436930 3.596642 3.175772 3.177666</span>
-<span class="co">#&gt;  [9] 2.649025 2.103756 3.075654 2.548388 5.053156 3.033173 3.193646</span>
+<span class="co">#&gt;  [1] 5.1887302 1.3420891 5.3111264 2.5230458 3.8408284 2.6416782 1.6946126</span>
+<span class="co">#&gt;  [8] 2.4330382 2.8194652 1.0026499 2.6480905 0.6433512 2.8889784 2.0269286</span>
+<span class="co">#&gt; [15] 4.5824261</span>
 <span class="fu"><a href="reference/r_binom.html">r_binom</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 2 3 3 0 1 2 3 1 0 1 1 2 1 3 1</span></code></pre></div>
+<span class="co">#&gt;  [1] 0 1 2 2 1 1 3 1 1 3 1 0 3 1 1</span></code></pre></div>
 </div>
 <div id="safer-and-replicable" class="section level2">
 <h2 class="hasAnchor">
@@ -345,6 +346,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/MyKo101/rando/actions"><img src="https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/MyKo101/rando?branch=master"><img src="https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/MyKo101/rando/actions"><img src="https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>
