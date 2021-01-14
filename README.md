@@ -9,6 +9,7 @@
 status](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg)](https://codecov.io/gh/MyKo101/rando?branch=master)
+[![R-CMD-check](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
 <!-- badges: end -->
 
 The goal of rando is to provide easier generating of random numbers in a
@@ -39,18 +40,18 @@ df <- tibble(id = 1:10,
        x = r_norm())
 df
 #> # A tibble: 10 x 2
-#>       id        x
-#>    <int>    <dbl>
-#>  1     1 -0.717  
-#>  2     2  0.786  
-#>  3     3 -0.751  
-#>  4     4  0.195  
-#>  5     5 -0.575  
-#>  6     6 -0.708  
-#>  7     7  0.00443
-#>  8     8 -0.940  
-#>  9     9  1.35   
-#> 10    10 -0.684
+#>       id       x
+#>    <int>   <dbl>
+#>  1     1  0.550 
+#>  2     2 -0.936 
+#>  3     3 -0.925 
+#>  4     4  1.52  
+#>  5     5  0.783 
+#>  6     6  0.880 
+#>  7     7 -0.0108
+#>  8     8  1.18  
+#>  9     9 -0.937 
+#> 10    10  1.65
 ```
 
 and inside of `dplyr` verbs
@@ -58,18 +59,18 @@ and inside of `dplyr` verbs
 ``` r
 mutate(df, y = r_unif())
 #> # A tibble: 10 x 3
-#>       id        x       y
-#>    <int>    <dbl>   <dbl>
-#>  1     1 -0.717   0.160  
-#>  2     2  0.786   0.849  
-#>  3     3 -0.751   0.248  
-#>  4     4  0.195   0.290  
-#>  5     5 -0.575   0.742  
-#>  6     6 -0.708   0.466  
-#>  7     7  0.00443 0.275  
-#>  8     8 -0.940   0.987  
-#>  9     9  1.35    0.754  
-#> 10    10 -0.684   0.00774
+#>       id       x      y
+#>    <int>   <dbl>  <dbl>
+#>  1     1  0.550  0.0670
+#>  2     2 -0.936  0.192 
+#>  3     3 -0.925  0.492 
+#>  4     4  1.52   0.537 
+#>  5     5  0.783  0.904 
+#>  6     6  0.880  0.0498
+#>  7     7 -0.0108 0.267 
+#>  8     8  1.18   0.886 
+#>  9     9 -0.937  0.0680
+#> 10    10  1.65   0.711
 ```
 
 Parameters can also be used to define the number of values to return. If
@@ -78,8 +79,8 @@ of random values, unless there is a clash between two of the parameters
 
 ``` r
 r_norm(mean = 1:10)
-#>  [1]  1.646460  1.426851  2.390095  3.919675  5.738230  7.006514  6.758490
-#>  [8]  6.825054  9.793100 10.373449
+#>  [1] -0.4737601  1.3827246  3.0187651  3.9872645  4.7401211  8.1290709
+#>  [7]  9.1659588  7.9588496  8.3890046  8.7587110
 r_norm(mean=1:10,sd=1:2)
 #> Error: Inconsistent parameter lengths supplied to r_norm()
 ```
@@ -90,10 +91,10 @@ the `n` argument (this must be named)
 
 ``` r
 r_unif(n=20)
-#>  [1] 0.073736296 0.694316115 0.126838400 0.389872381 0.744243355 0.417200313
-#>  [7] 0.983483450 0.977667520 0.069352079 0.566053953 0.003966586 0.500302361
-#> [13] 0.548635787 0.657779980 0.770831601 0.171120996 0.838838250 0.879830294
-#> [19] 0.620431531 0.858520843
+#>  [1] 0.54902280 0.43830205 0.69493018 0.52395062 0.95745979 0.51598220
+#>  [7] 0.07410938 0.99425926 0.81997273 0.06844705 0.31360466 0.74898317
+#> [13] 0.42491262 0.38696562 0.29960180 0.16743854 0.30876514 0.62888848
+#> [19] 0.36905385 0.81999770
 ```
 
 Or, if we are generating many random numbers, we can set a default `n`
@@ -102,10 +103,11 @@ value to be used globally
 ``` r
 set_n(15)
 r_norm(mean=3)
-#>  [1] 3.850911 1.233965 3.270736 2.466382 1.436930 3.596642 3.175772 3.177666
-#>  [9] 2.649025 2.103756 3.075654 2.548388 5.053156 3.033173 3.193646
+#>  [1] 5.1887302 1.3420891 5.3111264 2.5230458 3.8408284 2.6416782 1.6946126
+#>  [8] 2.4330382 2.8194652 1.0026499 2.6480905 0.6433512 2.8889784 2.0269286
+#> [15] 4.5824261
 r_binom(size=3)
-#>  [1] 2 3 3 0 1 2 3 1 0 1 1 2 1 3 1
+#>  [1] 0 1 2 2 1 1 3 1 1 3 1 0 3 1 1
 ```
 
 ## Safer and replicable

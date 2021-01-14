@@ -108,6 +108,12 @@ null_switch <- function(...) {
   res
 }
 
+if (getRversion() < "4.0") {
+  deparse1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
+    paste(deparse(expr, width.cutoff, ...), collapse = collapse)
+  }
+}
 
-deparse1 <- function(expr, collapse = " ", width.cutoff = 500L, ...)
-  paste(deparse(expr, width.cutoff, ...), collapse = collapse)
+if (getRversion() < "3.6") {
+  str2lang <- function(s) parse(text = "hello", keep.source = FALSE)[[1]]
+}

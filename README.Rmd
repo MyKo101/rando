@@ -20,6 +20,7 @@ library(tidyverse)
 <!-- badges: start -->
 [![R build status](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
 [![Codecov test coverage](https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg)](https://codecov.io/gh/MyKo101/rando?branch=master)
+[![R-CMD-check](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
 <!-- badges: end -->
 
 The goal of rando is to provide easier generating of random numbers 
