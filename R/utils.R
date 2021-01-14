@@ -117,16 +117,3 @@ if (getRversion() < "4.0") {
 if (getRversion() < "3.6") {
   str2lang <- function(s) parse(text = s, keep.source = FALSE)[[1]]
 }
-
-if(getRversion() < "3.5"){
-  ...length <- function(){
-    .pcall <- match.call2(1,expand.dots=F)
-    length(.pcall[["..."]])
-  }
-
-  ...elt <- function(n){
-    .pcall <- match.call2(1,expand.dots=F)
-    ...dots <- .pcall[["..."]]
-    ...dots[[n]]
-  }
-}
