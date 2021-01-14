@@ -115,5 +115,5 @@ if (getRversion() < "4.0") {
 }
 
 if (getRversion() < "3.6") {
-  str2lang <- function(s) parse(text = "hello", keep.source = FALSE)[[1]]
+  str2lang <- function(s) parse(text = s, keep.source = FALSE)[[1]]
 }
