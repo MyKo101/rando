@@ -127,6 +127,6 @@ if(getRversion() < "3.5"){
   ...elt <- function(n){
     .pcall <- match.call2(1,expand.dots=F)
     ...dots <- .pcall[["..."]]
-    ..dots[[n]]
+    ...dots[[n]]
   }
 }
