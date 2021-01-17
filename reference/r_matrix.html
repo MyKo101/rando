@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate Poisson Distributed Values — r_pois • rando</title>
+<title>Generate a random Matrix — r_matrix • rando</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Generate Poisson Distributed Values — r_pois" />
-<meta property="og:description" content="Generates a set of Poisson distributed values." />
+<meta property="og:title" content="Generate a random Matrix — r_matrix" />
+<meta property="og:description" content="Generate a random matrix, given a random number generator and it's
+dimensions. By default, this will generate a square matrix." />
 <meta property="og:image" content="/logo.svg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@MyKo101AB" />
@@ -119,32 +120,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate Poisson Distributed Values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MyKo101/rando/blob/master/R/built_in_distributions.R'><code>R/built_in_distributions.R</code></a></small>
-    <div class="hidden name"><code>r_pois.Rd</code></div>
+    <h1>Generate a random Matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MyKo101/rando/blob/master/R/simple_extension_distributions.R'><code>R/simple_extension_distributions.R</code></a></small>
+    <div class="hidden name"><code>r_matrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Generates a set of Poisson distributed values.</p>
+    <p>Generate a random matrix, given a random number generator and it's
+dimensions. By default, this will generate a square matrix.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>r_pois</span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>...</span>, n <span class='op'>=</span> <span class='fu'><a href='default_n.html'>default_n</a></span><span class='op'>(</span><span class='va'>rate</span><span class='op'>)</span>, .seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>r_matrix</span><span class='op'>(</span>
+  <span class='va'>engine</span>,
+  col_names <span class='op'>=</span> <span class='cn'>NULL</span>,
+  row_names <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  nrow <span class='op'>=</span> <span class='fu'><a href='default_n.html'>default_n</a></span><span class='op'>(</span><span class='va'>row_names</span><span class='op'>)</span>,
+  ncol <span class='op'>=</span> <span class='fu'><a href='default_n.html'>default_n</a></span><span class='op'>(</span><span class='va'>col_names</span><span class='op'>)</span>,
+  .seed <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rate</th>
-      <td><p>vector of rates, strictly positive</p></td>
+      <th>engine</th>
+      <td><p>The rando function that will be used to generate the random numbers</p></td>
+    </tr>
+    <tr>
+      <th>col_names, row_names</th>
+      <td><p>names to be assigned to the rows or columns. This is also used in
+deciding the dimensions of the result.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Unused</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
-provide a default value within context</p></td>
+      <th>ncol, nrow</th>
+      <td><p>dimensions of the matrix. The [default_n()] function will provide
+a default value within context.</p></td>
     </tr>
     <tr>
       <th>.seed</th>
@@ -163,15 +178,32 @@ values, use `pull_seed()`</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
-<span class='fu'>r_pois</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 10  7  7 12 10</div><div class='input'>
-<span class='fu'>r_pois</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  1  2  1  2  5  5  5  8 10 13</div><div class='input'>
-<span class='fu'>r_pois</span><span class='op'>(</span><span class='fl'>10</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 14 12  8 11 13  8  8 14  7  6</div></pre>
+<span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_norm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             [,1]       [,2]       [,3]       [,4]        [,5]
+#&gt; [1,] -0.86434980  0.9480316  0.8769131  0.8408018  0.88862899
+#&gt; [2,] -1.09147035 -0.1742460 -1.1489039  0.7915341  0.01321448
+#&gt; [3,] -0.03705146 -1.1062360 -1.1376128 -0.1688489  0.22533951
+#&gt; [4,]  0.81005379 -0.9459850 -1.4372467  0.6127221 -0.72991521
+#&gt; [5,] -0.49935541  0.2890896 -0.4941435 -0.7711589 -1.22248707</div><div class='input'>
+<span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_unif</span>,min<span class='op'>=</span><span class='fl'>1</span>,max<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          [,1]     [,2]     [,3]     [,4]     [,5]
+#&gt; [1,] 1.657924 1.289282 1.541678 1.730600 1.769155
+#&gt; [2,] 1.652054 1.637585 1.484831 1.134166 1.176350
+#&gt; [3,] 1.226323 1.264539 1.764295 1.048398 1.110759
+#&gt; [4,] 1.853980 1.386268 1.961027 1.703607 1.938342
+#&gt; [5,] 1.435607 1.619194 1.270585 1.147214 1.846471</div><div class='input'>
+
+<span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_norm</span>,mean<span class='op'>=</span><span class='fl'>10</span>,sd<span class='op'>=</span><span class='fl'>2</span>,ncol<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           [,1]      [,2]
+#&gt; [1,] 10.358573  8.179408
+#&gt; [2,]  7.310119 10.819924
+#&gt; [3,]  8.502191  4.359896
+#&gt; [4,]  8.021150 10.650422
+#&gt; [5,]  8.304066  8.353467</div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
