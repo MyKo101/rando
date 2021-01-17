@@ -2,12 +2,15 @@
 % Please edit documentation in R/set_n.R
 \name{default_n}
 \alias{default_n}
+\alias{blueprint_n}
 \alias{tibble_n}
 \alias{dplyr_n}
 \alias{args_n}
 \title{Find the Default value for n in Context}
 \usage{
 default_n(...)
+
+blueprint_n()
 
 tibble_n()
 
@@ -26,6 +29,9 @@ to figure out what value for n should be used
 \itemize{
 \item \code{default_n}: Checks for the default value of n in a
 context aware manner.
+
+\item \code{blueprint_n}: If we are inside of a blueprint, then use the
+n that is passed to the blueprinting function
 
 \item \code{tibble_n}: If we are inside of a call to  \code{tibble()},
 it returns the number of rows in the \code{tibble}, otherwise
@@ -46,6 +52,8 @@ dplyr::mutate(df, n = default_n())
 default_n(1:5)
 set_n(10)
 default_n()
+bp <- blueprint(x=r_norm(),n=blueprint_n())
+bp(n=10)
 tibble::tibble(id = 1:3, n = tibble_n())
 dplyr::mutate(df, n = dplyr_n())
 args_n(1:3)

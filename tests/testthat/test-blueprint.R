@@ -20,63 +20,73 @@ test_that("Blueprints are produced", {
 
   expect_s3_class(
     blueprint(x = r_norm(), y = rnorm()),
-    "rando_blueprint"
+    "rando_blueprint_function"
   )
+
+  bp_like_env <- rlang::new_environment(
+    list(set_blueprint_n = rando:::set_blueprint_n),
+    .GlobalEnv
+  )
+
+  bp_like_args <- list(
+    `...`=rlang::missing_arg(),
+    n = quote(default_n(...)),
+    .seed = NULL)
+
+
 
   expect_equal(
     blueprint(x = r_norm(), y = rnorm()),
     structure(
-      function(..., n = default_n(...), .seed = NULL) {
-        list2env(list(...), environment())
-        with_seed(
-          .seed,
-          tibble::tibble(
-            x = r_norm(),
-            y = rnorm(),
-            .rows = n
+      rlang::new_function(
+        bp_like_args,
+        quote({
+          set_blueprint_n(n)
+          on.exit(set_blueprint_n())
+          list2env(list(...), environment())
+          with_seed(
+            .seed,
+            tibble::tibble(
+              x = r_norm(),
+              y = rnorm(),
+              .rows = n
+            )
           )
-        )
-      },
-      class = c("rando_blueprint", "function")
+        }),
+        bp_like_env
+      ),
+      class = c("rando_blueprint_function","function")
     )
   )
 
+
+
   expect_equal(
-    blueprint(x = r_unif(), y = rnorm()),
+    blueprint(x = r_unif(), y = r_unif()),
     structure(
-      function(..., n = default_n(...), .seed = NULL) {
-        list2env(list(...), environment())
-        with_seed(
-          .seed,
-          tibble::tibble(
-            x = r_unif(),
-            y = rnorm(),
-            .rows = n
+      rlang::new_function(
+        bp_like_args,
+        quote({
+          set_blueprint_n(n)
+          on.exit(set_blueprint_n())
+          list2env(list(...), environment())
+          with_seed(
+            .seed,
+            tibble::tibble(
+              x = r_unif(),
+              y = r_unif(),
+              .rows = n
+            )
           )
-        )
-      },
-      class = c("rando_blueprint", "function")
+        }),
+        bp_like_env
+      ),
+      class = c("rando_blueprint_function","function")
     )
   )
 
-  expect_equal(
-    blueprint(x = r_unif(min = -1, max = 10), y = rnorm(10, 2), z = r_geom()),
-    structure(
-      function(..., n = default_n(...), .seed = NULL) {
-        list2env(list(...), environment())
-        with_seed(
-          .seed,
-          tibble::tibble(
-            x = r_unif(min = -1, max = 10),
-            y = rnorm(10, 2),
-            z = r_geom(),
-            .rows = n
-          )
-        )
-      },
-      class = c("rando_blueprint", "function")
-    )
-  )
+
+
 
   expect_true(
     is_blueprint(bp)
@@ -225,3 +235,4 @@ test_that("bp_where errors correctly", {
     bp_where(rep(T, 5), bp(n = 10))
   )
 })
+

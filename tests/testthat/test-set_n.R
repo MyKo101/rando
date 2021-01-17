@@ -2,7 +2,6 @@
 
 test_that("set_n() works", {
 
-  # Should return n invisibly
   expect_equal(
     set_n(30),
     30
@@ -10,7 +9,6 @@ test_that("set_n() works", {
 
   expect_invisible(set_n(30))
 
-  # And returned value should be n
   expect_equal(
     getOption("rando.n"),
     30
@@ -47,6 +45,7 @@ test_that("get_n() retrieves value from set_n()", {
 
 set_n(100)
 df <- tibble::tibble(id = 1:25)
+bp <- blueprint(x=r_norm(),n=blueprint_n())
 
 test_that("default_n() extracts the correct values", {
   set_n(NULL)
@@ -157,5 +156,27 @@ test_that("args_n() extracts the correct value", {
   expect_equal(
     args_n(c("a", "b", "c"), 1:3, NULL, 1),
     c(3, 3, 1)
+  )
+})
+
+
+test_that("blueprint_n() extracts the correct value", {
+  expect_null(
+    blueprint_n()
+  )
+
+  bp <- blueprint(
+    x = r_norm(),
+    n = blueprint_n()
+  )
+
+  expect_equal(
+    bp(n=10)$n[1],
+    10
+  )
+
+  expect_length(
+    bp(n=10)$n,
+    10
   )
 })

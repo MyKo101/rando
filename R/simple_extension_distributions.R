@@ -169,3 +169,57 @@ letter_sample <- function(x, nchar, n) {
     character(1)
   )
 }
+
+#' @name r_matrix
+#'
+#' @title Generate a random Matrix
+#'
+#' @description
+#' Generate a random matrix, given a random number generator and it's
+#' dimensions. By default, this will generate a square matrix.
+#'
+#' @param engine
+#' The rando function that will be used to generate the random numbers
+#'
+#' @param ncol,nrow
+#' dimensions of the matrix. The [default_n()] function will provide
+#' a default value within context.
+#'
+#' @param col_names,row_names
+#' names to be assigned to the rows or columns. This is also used in
+#' deciding the dimensions of the result.
+#'
+#'
+#' @inheritParams r_norm
+#'
+#' @examples
+#' set_n(5)
+#'
+#' r_matrix(r_norm)
+#'
+#' r_matrix(r_unif,min=1,max=2)
+#'
+#'
+#' r_matrix(r_norm,mean=10,sd=2,ncol=2)
+#'
+#'
+#' @export
+#'
+
+r_matrix <- function(engine,col_names=NULL,row_names=NULL,...,
+                     nrow=default_n(row_names),ncol=default_n(col_names),.seed=NULL){
+  check_n(ncol)
+  check_n(nrow)
+
+  res <- with_seed(
+    .seed,
+    matrix(engine(...,n=ncol*nrow),nrow=nrow,ncol=ncol)
+  )
+
+  if(!is.null(col_names)) colnames(res) <- col_names
+  if(!is.null(row_names)) rownames(res) <- row_names
+
+  res
+
+
+}

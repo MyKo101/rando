@@ -63,6 +63,7 @@ NULL
 #' @export
 default_n <- function(...) {
   con_n <- null_switch(
+    blueprint_n(),
     tibble_n(),
     dplyr_n(),
     1
@@ -83,6 +84,16 @@ default_n <- function(...) {
     }
     n
   }
+}
+
+#' @describeIn default_n If we are inside of a blueprint, then use the
+#' n that is passed to the blueprinting function
+#' @examples
+#' bp <- blueprint(x=r_norm(),n=blueprint_n())
+#' bp(n=10)
+#' @export
+blueprint_n <- function(){
+  get0("..blueprint_n",ifnotfound=NULL)
 }
 
 #' @describeIn default_n If we are inside of a call to  \code{tibble()},
@@ -143,3 +154,6 @@ args_n <- function(...) {
     1
   }
 }
+
+
+

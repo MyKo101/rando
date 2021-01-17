@@ -41,13 +41,16 @@ blueprint <- function(...) {
 
   body(f) <- call(
     "{",
+    quote(set_blueprint_n(n)),
+    quote(on.exit(set_blueprint_n())),
     quote(list2env(list(...), environment())),
     call("with_seed", quote(.seed), .call)
   )
   environment(f) <- new.env(parent = parent.frame())
+  environment(f)[["set_blueprint_n"]] <- set_blueprint_n
   structure(
     f,
-    class = c("rando_blueprint", "function")
+    class = c("rando_blueprint_function", "function")
   )
 }
 
@@ -60,7 +63,7 @@ blueprint <- function(...) {
 #' @export
 
 is_blueprint <- function(bp) {
-  inherits(bp, "rando_blueprint")
+  inherits(bp, "rando_blueprint_function")
 }
 
 #' @name bp_where
@@ -113,3 +116,15 @@ bp_where <- function(condition, bp, ...) {
   rows[condition] <- 1:sum(condition)
   full_set[rows, ]
 }
+
+
+..blueprint_n <- NULL
+
+
+set_blueprint_n <- function(n=NULL){
+  rando_env <- asNamespace("rando")
+  eval(call("unlockBinding", "..blueprint_n",rando_env))
+  assign("..blueprint_n",n,rando_env)
+  eval(call("lockBinding", "..blueprint_n",rando_env))
+}
+

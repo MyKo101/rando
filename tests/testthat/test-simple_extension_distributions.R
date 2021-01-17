@@ -410,3 +410,97 @@ test_that("r_Letters() results are consistent", {
     check.attributes = F
   )
 })
+
+#### r_matrix() ####
+
+test_that("r_matrix() lengths work", {
+
+  # Check we're getting the default length
+  expect_equal(nrow(r_matrix(r_norm)), 100)
+  expect_equal(ncol(r_matrix(r_norm)), 100)
+
+  # Check we can overwrite the length manually
+  expect_equal(nrow(r_matrix(r_norm,nrow=50)), 50)
+  expect_equal(ncol(r_matrix(r_norm,nrow=50)), 100)
+  expect_equal(nrow(r_matrix(r_norm,ncol=50)), 100)
+  expect_equal(ncol(r_matrix(r_norm,ncol=50)), 50)
+
+  # Check the length can be extracted from arguments
+  expect_equal(nrow(r_matrix(r_norm,row_names = c("One","Two","Three"))),3)
+  expect_equal(ncol(r_matrix(r_norm,col_names = c("One","Two","Three"))),3)
+
+  # Check lengths can be found in tibble()
+  expect_equal(nrow(tibble(id=1:10,x=r_matrix(r_norm))$x),10)
+  expect_equal(ncol(tibble(id=1:10,x=r_matrix(r_norm))$x),10)
+
+  expect_gt(nrow(unique(tibble(id=1:10,x=r_matrix(r_norm))$x)),1)
+  expect_gt(ncol(unique(tibble(id=1:10,x=r_matrix(r_norm))$x)),1)
+
+
+  # Check lengths can be found in dplyr::mutate()
+  expect_equal(nrow(dplyr::mutate(df,x=r_matrix(r_norm))$x),25)
+  expect_equal(ncol(dplyr::mutate(df,x=r_matrix(r_norm))$x),25)
+
+  expect_gt(nrow(unique(dplyr::mutate(df,x=r_matrix(r_norm))$x)),1)
+  expect_gt(ncol(unique(dplyr::mutate(df,x=r_matrix(r_norm))$x)),1)
+
+})
+
+test_that("r_matrix() errors work", {
+
+  # Check invalid parameters throw errors
+  expect_error(r_matrix(r_norm,nrow = -1))
+  expect_error(r_matrix(r_norm,nrow = 1.5))
+  expect_error(r_matrix(r_norm,nrow = c(1,2)))
+
+  expect_error(r_matrix(r_norm,ncol = -1))
+  expect_error(r_matrix(r_norm,ncol = 1.5))
+  expect_error(r_matrix(r_norm,ncol = c(1,2)))
+
+
+  expect_error(r_matrix(r_norm,.seed = -2^31))
+  expect_error(r_matrix(r_norm,.seed = 2^31))
+  expect_error(r_matrix(r_norm,.seed = FALSE))
+  expect_error(r_matrix(r_norm,.seed = "error"))
+})
+
+test_that("r_matrix() seeds work", {
+
+  # Check we can extract the seed
+  expect_equal(pull_seed(r_matrix(r_norm,.seed = 100)), 100)
+  expect_null(pull_seed(r_matrix(r_norm)))
+  expect_false(is.null(pull_seed(r_matrix(r_norm,.seed = T))))
+})
+
+test_that("r_matrix() results are consistent", {
+
+  # Check we are getting the same result when the seed is set
+  expect_equal(
+    r_matrix(r_norm,.seed = 123456),
+    {
+      set.seed(123456)
+      matrix(rnorm(100*100),nrow=100,ncol=100)
+    },
+    check.attributes = F
+  )
+
+  expect_equal(
+    r_matrix(r_norm,mean=100,sd=10,.seed = 8963),
+    {
+      set.seed(8963)
+      matrix(rnorm(100*100,mean=100,sd=10),nrow=100,ncol=100)
+    },
+    check.attributes = F
+  )
+
+
+  expect_equal(
+    r_matrix(r_unif,min=100,max=200,.seed = 66534),
+    {
+      set.seed(66534)
+      matrix(runif(100*100,min=100,max=200),nrow=100,ncol=100)
+    },
+    check.attributes = F
+  )
+
+})
