@@ -4,6 +4,7 @@
 \alias{seed}
 \alias{gen_seed}
 \alias{set_seed}
+\alias{fix_seed}
 \alias{with_seed}
 \alias{pull_seed}
 \title{Random Seed Defining Functions}
@@ -12,12 +13,16 @@ gen_seed()
 
 set_seed(seed)
 
+fix_seed(reset = FALSE)
+
 with_seed(seed, expression)
 
 pull_seed(x)
 }
 \arguments{
 \item{seed}{The random seed to be used}
+
+\item{reset}{Should the fixed seed be forced to reset}
 
 \item{expression}{expression to be evaluated}
 
@@ -38,6 +43,8 @@ we can make work reproducible.
 
 \item \code{set_seed}: Sets the current seed
 
+\item \code{fix_seed}: Resets the seed to re-run code
+
 \item \code{with_seed}: Evaluates the expression after setting the seed.
 If \code{seed} is
 \code{TRUE}, then it first generates a feasible random seed. Results
@@ -50,6 +57,10 @@ extracted with \code{pull_seed()}
 
 \examples{
 my_seed <- gen_seed()
+fix_seed()
+r_norm(n=3)
+fix_seed()
+r_norm(n=3)
 res <- with_seed(my_seed, r_norm(n = 10))
 res
 pull_seed(res)

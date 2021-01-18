@@ -35,6 +35,27 @@ set_seed <- function(seed) {
   set.seed(seed)
 }
 
+#' @describeIn seed Resets the seed to re-run code
+#'
+#' @param reset
+#' Should the fixed seed be forced to reset
+#' @export
+#' @examples
+#' fix_seed()
+#' r_norm(n=3)
+#' fix_seed()
+#' r_norm(n=3)
+
+fix_seed <- function(reset=FALSE){
+  if(reset){
+    seed <- gen_seed()
+  } else {
+    seed <- getOption("rando.fixed.seed",default=gen_seed())
+  }
+  options(rando.fixed.seed = seed)
+  set_seed(seed)
+}
+
 #' @describeIn seed Evaluates the expression after setting the seed.
 #' If \code{seed} is
 #' \code{TRUE}, then it first generates a feasible random seed. Results

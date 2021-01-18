@@ -41,6 +41,7 @@ reference:
     - r_bern
     - r_letters
     - r_lgl
+    - r_matrix
 
   - title: "Built-in Distribution Functions"
     desc: "`rando` versions of the built-in R random number generators"

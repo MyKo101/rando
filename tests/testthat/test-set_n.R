@@ -180,3 +180,30 @@ test_that("blueprint_n() extracts the correct value", {
     10
   )
 })
+
+
+test_that("fix_seed() sets and resets random seed",{
+
+  expect_silent(fix_seed())
+
+  expect_false(is.null(getOption("rando.fixed.seed")))
+
+  current_seed <- getOption("rando.fixed.seed")
+
+  expect_equal(
+    {
+      fix_seed()
+      r_norm(n=100)
+    },
+    {
+      fix_seed()
+      r_norm(n=100)
+    }
+  )
+
+  expect_silent(fix_seed(reset=TRUE))
+
+  expect_false(getOption("rando.fixed.seed") == current_seed)
+
+
+})
