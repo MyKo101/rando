@@ -134,6 +134,8 @@ them for reproducibility.</p>
 
 <span class='fu'>set_seed</span><span class='op'>(</span><span class='va'>seed</span><span class='op'>)</span>
 
+<span class='fu'>fix_seed</span><span class='op'>(</span>reset <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
 <span class='fu'>with_seed</span><span class='op'>(</span><span class='va'>seed</span>, <span class='va'>expression</span><span class='op'>)</span>
 
 <span class='fu'>pull_seed</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
@@ -144,6 +146,10 @@ them for reproducibility.</p>
     <tr>
       <th>seed</th>
       <td><p>The random seed to be used</p></td>
+    </tr>
+    <tr>
+      <th>reset</th>
+      <td><p>Should the fixed seed be forced to reset</p></td>
     </tr>
     <tr>
       <th>expression</th>
@@ -166,6 +172,7 @@ we can make work reproducible.</p>
 <ul>
 <li><p><code>gen_seed</code>: Generates a random seed, which can be used in <code>set_seed()</code></p></li>
 <li><p><code>set_seed</code>: Sets the current seed</p></li>
+<li><p><code>fix_seed</code>: Resets the seed to re-run code</p></li>
 <li><p><code>with_seed</code>: Evaluates the expression after setting the seed.
 If <code>seed</code> is
 <code>TRUE</code>, then it first generates a feasible random seed. Results
@@ -177,7 +184,11 @@ extracted with <code>pull_seed()</code></p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>my_seed</span> <span class='op'>&lt;-</span> <span class='fu'>gen_seed</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>with_seed</span><span class='op'>(</span><span class='va'>my_seed</span>, <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fix_seed</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -1.0586429 -0.5291805 -0.2602531</div><div class='input'><span class='fu'>fix_seed</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -1.0586429 -0.5291805 -0.2602531</div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>with_seed</span><span class='op'>(</span><span class='va'>my_seed</span>, <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>res</span>
 </div><div class='output co'>#&gt;  [1] -0.3632562 -1.6390605 -0.2930205  1.2217735 -0.4380276  0.5729170
 #&gt;  [7]  1.1137839 -0.4031856  0.9239176 -0.5070330
