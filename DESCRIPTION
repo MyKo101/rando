@@ -9,6 +9,7 @@ Authors@R:
            email = "myko101ab@gmail.com")
 Description: Provides random number generating functions that
     are much more context aware than the built-in functions.
+Language: en-GB
 License: MIT + file LICENSE
 URL: https://github.com/MyKo101/rando
 BugReports: https://github.com/MyKo101/rando/issues
@@ -18,7 +19,8 @@ Imports:
     rlang,
     stats,
     tibble
-Suggests: 
+Suggests:
+    spelling, 
     covr,
     testthat
 Encoding: UTF-8

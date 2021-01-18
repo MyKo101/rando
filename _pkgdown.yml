@@ -1,10 +1,13 @@
 home:
-  title: Context Aware Random Numbers
-  description: Provides random number generating functions that
-    are context aware.
+  title: "Context Aware Random Numbers"
+  description: "Provides random number generating functions that are context aware."
+  author: "Michael Barrowman"
 
 template:
   opengraph:
+    image:
+      src: man/figures/logo.svg
+      alt: "Provides random number generating functions that are context aware."
     twitter:
       creator: "@MyKo101AB"
       card: summary_large_image

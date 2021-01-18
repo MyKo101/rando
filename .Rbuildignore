@@ -8,3 +8,4 @@
 ^\.github$
 ^codecov\.yml$
 Generate_logo.R
+^cran-comments\.md$
