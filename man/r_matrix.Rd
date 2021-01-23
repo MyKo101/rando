@@ -40,7 +40,7 @@ To extract the random seed from a previously generated set of
 values, use \code{pull_seed()}}
 }
 \value{
-A matrix with \code{nrow} rows and \code{ncol} columnes an a type as
+A matrix with \code{nrow} rows and \code{ncol} columns an a type as
 decided by the function passed to \code{engine}.
 }
 \description{

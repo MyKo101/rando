@@ -202,7 +202,7 @@ letter_sample <- function(x, nchar, n) {
 #' @inheritParams r_norm
 #'
 #' @return
-#' A matrix with `nrow` rows and `ncol` columnes an a type as
+#' A matrix with `nrow` rows and `ncol` columns an a type as
 #' decided by the function passed to `engine`.
 #'
 #' @examples
