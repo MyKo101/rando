@@ -31,6 +31,8 @@
 #' To extract the random seed from a previously generated set of
 #' values, use `pull_seed()`
 #'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @param ...
 #' Unused
@@ -69,6 +71,9 @@ r_norm <- function(mean = 0, sd = 1, ..., n = default_n(mean, sd), .seed = NULL)
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -104,6 +109,9 @@ r_beta <- function(alpha, beta, ..., n = default_n(alpha, beta), .seed = NULL) {
 #' vector of probabilities of success on each trial, between 0 & 1
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -144,6 +152,9 @@ r_binom <- function(size, prob = 0.5, ..., n = default_n(size, prob), .seed = NU
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -178,6 +189,9 @@ r_cauchy <- function(location = 0, scale = 1, ..., n = default_n(location, scale
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -210,6 +224,9 @@ r_chisq <- function(df, ..., n = default_n(df), .seed = NULL) {
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -241,6 +258,9 @@ r_exp <- function(rate = 1, ..., n = default_n(rate), .seed = NULL) {
 #' vectors of degrees of freedom, strictly positive
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -290,6 +310,9 @@ r_fdist <- function(df1, df2, ..., n = default_n(df1, df2), .seed = NULL) {
 #' strictly positive
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -343,6 +366,9 @@ r_gamma <- function(shape, ..., scale = 1, rate = NULL, mean = NULL,
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -381,6 +407,9 @@ r_geom <- function(prob = 0.5, ..., n = default_n(prob), .seed = NULL) {
 #' number of draws to make
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -426,8 +455,10 @@ r_hyper <- function(total, positives, num,
 #' @param sd_log
 #' vector of standard deviations (on the log scale), strictly positive
 #'
-#'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -477,6 +508,9 @@ r_lnorm <- function(mean_log = 0, sd_log = 1, ...,
 #'
 #' @inheritParams r_norm
 #' @inheritParams r_geom
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -528,6 +562,9 @@ r_nbinom <- function(r = NULL, prob = 0.5, ..., mu = NULL,
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -560,6 +597,9 @@ r_pois <- function(rate, ..., n = default_n(rate), .seed = NULL) {
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -591,6 +631,9 @@ r_tdist <- function(df, ..., n = default_n(df), .seed = NULL) {
 #' vectors of lower and upper limits of the distribution
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'
@@ -653,6 +696,9 @@ r_unif <- function(min = 0, max = 1, ..., n = default_n(min, max), .seed = NULL)
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -712,6 +758,9 @@ r_weibull <- function(shape, scale = 1, ..., b_scale = NULL, B_scale = NULL,
 #' between 0 & 1
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A vector of length `n` of the same type as `sample`
 #'
 #' @examples
 #'

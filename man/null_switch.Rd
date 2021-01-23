@@ -9,10 +9,14 @@ null_switch(...)
 \arguments{
 \item{...}{expressions to try to evaluate}
 }
+\value{
+The result of evaluating one of the expressions. Will only be
+\code{NULL} if they \emph{all} evaluated to \code{NULL}
+}
 \description{
-Evaluates expressions until one that is not `NULL` is encountered
-and returns that. Expressions after the non-`NULL` result are not
-evaluated. If all expressions are `NULL`, it will return `NULL`
+Evaluates expressions until one that is not \code{NULL} is encountered
+and returns that. Expressions after the first non-\code{NULL} result are not
+evaluated. If all expressions are \code{NULL}, it will return \code{NULL}
 }
 \examples{
 f <- function() {

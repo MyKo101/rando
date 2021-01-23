@@ -3,10 +3,24 @@
 #' @title Blueprint a Dataset
 #'
 #' @description
-#' Allows for the generation of population based on a prescribed
+#' Allows for the generation of population based on a prescribed set
+#' of rando functions.
 #'
 #' @param ...
-#' arguments used to generate the blueprint
+#' arguments used to generate the blueprint, see Examples.
+#'
+#' @return
+#' A function that will produce a [tibble][tibble::tibble-package],
+#' which matches the blueprint that was provided. The generated
+#' function will take the following arguments:
+#'
+#' * `...` - any arguments that are used within the blueprinting
+#' * `n` - the number of rows that the resulting tibble should be
+#' * `.seed` - the random seed to set before generating the data
+#'
+#'
+#' `is_blueprint()` simply checks whether a function is a blueprinting
+#' function or not and returns a logical.
 #'
 #' @examples
 #' make_tbl <- blueprint(
@@ -18,15 +32,14 @@
 #'
 #' make_tbl(n = 5)
 #'
+#' # Blueprints can use additional parameters:
 #' make_tbl2 <- blueprint(
 #'   x = r_norm(mean = x_mu),
 #'   y = r_unif(min = y_min, max = y_max)
 #' )
 #'
+#' # Which are simply passed to the generated function
 #' make_tbl2(x_mu = 10, y_min = -10, y_max = -5)
-#' @return
-#' a function which can produce a tibble based on the provided
-#' blueprint
 #'
 #' @export
 #'
@@ -55,13 +68,15 @@ blueprint <- function(...) {
 }
 
 #' @rdname blueprint
+#'
 #' @param bp
-#' Obj to check
+#' Object to check
 #'
 #' @examples
 #' is_blueprint(make_tbl)
+#'
 #' @export
-
+#'
 is_blueprint <- function(bp) {
   inherits(bp, "rando_blueprint_function")
 }
@@ -84,6 +99,8 @@ is_blueprint <- function(bp) {
 #'
 #' @param ...
 #' arguments passed on to Blueprint, such as \code{.seed}
+#'
+#' @return a [tibble][tibble::tibble-package]
 #'
 #' @examples
 #' make_tbl <- blueprint(

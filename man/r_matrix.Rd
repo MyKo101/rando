@@ -6,8 +6,8 @@
 \usage{
 r_matrix(
   engine,
-  col_names = NULL,
   row_names = NULL,
+  col_names = NULL,
   ...,
   nrow = default_n(row_names),
   ncol = default_n(col_names),
@@ -22,32 +22,36 @@ deciding the dimensions of the result.}
 
 \item{...}{Unused}
 
-\item{ncol, nrow}{dimensions of the matrix. The [default_n()] function will provide
+\item{nrow, ncol}{dimensions of the matrix. The \code{\link[=default_n]{default_n()}} function will provide
 a default value within context.}
 
 \item{.seed}{One of the following:
-
-* NULL (default) will not change the current seed. This is the
+\itemize{
+\item NULL (default) will not change the current seed. This is the
 usual case for generating random numbers.
-
-* A numeric value. This will be used to set the seed before generating
+\item A numeric value. This will be used to set the seed before generating
 the random numbers. This seed will be stored with the results.
-
-* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.
+\item TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.
+}
 
 To extract the random seed from a previously generated set of
-values, use `pull_seed()`}
+values, use \code{pull_seed()}}
+}
+\value{
+A matrix with \code{nrow} rows and \code{ncol} columnes an a type as
+decided by the function passed to \code{engine}.
 }
 \description{
-Generate a random matrix, given a random number generator and it's
+Generate a random matrix, given a rando function and it's
 dimensions. By default, this will generate a square matrix.
 }
 \examples{
 set_n(5)
 
 r_matrix(r_norm)
+
 
 r_matrix(r_unif,min=1,max=2)
 

@@ -17,41 +17,43 @@ r_cdf(
 \arguments{
 \item{Fun}{function to use as the cdf. See details}
 
-\item{min, max}{range values for the domain of the `Fun`}
+\item{min, max}{range values for the domain of the \code{Fun}}
 
-\item{...}{arguments that can be passed to `Fun`}
+\item{...}{arguments that can be passed to \code{Fun}}
 
-\item{data}{data set containing arguments to be passed to  `Fun`}
+\item{data}{data set containing arguments to be passed to  \code{Fun}}
 
-\item{n}{number of observations to generate. The [default_n()] function will
+\item{n}{number of observations to generate. The \code{\link[=default_n]{default_n()}} function will
 provide a default value within context}
 
 \item{.seed}{One of the following:
-
-* NULL (default) will not change the current seed. This is the
+\itemize{
+\item NULL (default) will not change the current seed. This is the
 usual case for generating random numbers.
-
-* A numeric value. This will be used to set the seed before generating
+\item A numeric value. This will be used to set the seed before generating
 the random numbers. This seed will be stored with the results.
-
-* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.
+\item TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.
+}
 
 To extract the random seed from a previously generated set of
-values, use `pull_seed()`}
+values, use \code{pull_seed()}}
+}
+\value{
+A numeric vector of length \code{n}
 }
 \description{
 Generates Random Numbers based on a distribution defined by any
 arbitrary cumulative distribution function
 }
 \details{
-The `Fun` argument accepts `purrr` style inputs.
+The \code{Fun} argument accepts \code{purrr} style inputs.
 Must be vectorised, defined on the whole Real line and return a
 single numeric value between 0 and 1 for any input. The random
-variable will be passed to `Fun` as the first argument.
+variable will be passed to \code{Fun} as the first argument.
 This means that R's argument matching can be used with named
-arguments in `...` if a different positional argument is wanted.
+arguments in \code{...} if a different positional argument is wanted.
 }
 \examples{
 

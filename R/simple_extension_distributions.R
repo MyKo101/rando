@@ -12,6 +12,9 @@
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A numeric vector of length `n`
+#'
 #' @examples
 #'
 #' set_n(5)
@@ -44,6 +47,9 @@ r_bern <- function(prob = 0.5, ..., n = default_n(prob), .seed = NULL) {
 #' vector of probability of `TRUE` results, between 0 & 1
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A logical vector of length `n`
 #'
 #' @examples
 #'
@@ -78,6 +84,9 @@ r_lgl <- function(prob = 0.5, ..., n = default_n(prob), .seed = NULL) {
 #' vector of number of characters to return, positive integer
 #'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A character vector of length `n`
 #'
 #'
 NULL
@@ -175,13 +184,13 @@ letter_sample <- function(x, nchar, n) {
 #' @title Generate a random Matrix
 #'
 #' @description
-#' Generate a random matrix, given a random number generator and it's
+#' Generate a random matrix, given a rando function and it's
 #' dimensions. By default, this will generate a square matrix.
 #'
 #' @param engine
 #' The rando function that will be used to generate the random numbers
 #'
-#' @param ncol,nrow
+#' @param nrow,ncol
 #' dimensions of the matrix. The [default_n()] function will provide
 #' a default value within context.
 #'
@@ -192,10 +201,15 @@ letter_sample <- function(x, nchar, n) {
 #'
 #' @inheritParams r_norm
 #'
+#' @return
+#' A matrix with `nrow` rows and `ncol` columnes an a type as
+#' decided by the function passed to `engine`.
+#'
 #' @examples
 #' set_n(5)
 #'
 #' r_matrix(r_norm)
+#'
 #'
 #' r_matrix(r_unif,min=1,max=2)
 #'
@@ -206,7 +220,7 @@ letter_sample <- function(x, nchar, n) {
 #' @export
 #'
 
-r_matrix <- function(engine,col_names=NULL,row_names=NULL,...,
+r_matrix <- function(engine,row_names=NULL,col_names=NULL,...,
                      nrow=default_n(row_names),ncol=default_n(col_names),.seed=NULL){
   check_n(ncol)
   check_n(nrow)

@@ -28,6 +28,16 @@ pull_seed(x)
 
 \item{x}{object to extract the \code{seed} from}
 }
+\value{
+\code{gen_seed()} returns a single numeric value
+
+\code{with_seed()} returns the value of the evaluated expression after
+with the relevant seed as an attribute (if required)
+
+\code{pull_seed()} returns a single numeric value
+
+\code{fix_seed()} and \code{set_seed()} do not return anything
+}
 \description{
 Functions related to generating random seeds and utilising
 them for reproducibility.
@@ -46,22 +56,37 @@ we can make work reproducible.
 \item \code{fix_seed}: Resets the seed to re-run code
 
 \item \code{with_seed}: Evaluates the expression after setting the seed.
-If \code{seed} is
-\code{TRUE}, then it first generates a feasible random seed. Results
-are output with the \code{seed} attached (if set), which can be later
-extracted with \code{pull_seed()}
+If \code{seed} is \code{TRUE}, then it first generates a seed using
+\code{gen_seed()}. Results are output with the \code{seed} attached (if set).#'
 
 \item \code{pull_seed}: Extracts the seed used to generate the results of
-\code{with_seed}
+\code{with_seed()}
 }}
 
 \examples{
 my_seed <- gen_seed()
+
+
+set_seed(my_seed)
+r_norm(n=10)
+set_seed(my_seed)
+r_norm(n=10)
+
+
 fix_seed()
 r_norm(n=3)
+
 fix_seed()
 r_norm(n=3)
+
+fix_seed(reset=TRUE)
+r_norm(n=3)
+
+
 res <- with_seed(my_seed, r_norm(n = 10))
 res
+
+
 pull_seed(res)
+
 }

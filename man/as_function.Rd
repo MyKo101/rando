@@ -7,25 +7,48 @@
 as_function(x, env = parent.frame())
 }
 \arguments{
-\item{x}{A function or formula, see [rlang::as_function()] for more
+\item{x}{a function or formula, see \code{\link[rlang:as_function]{rlang::as_function()}} for more
 information}
 
-\item{env}{Environment in which to fetch the function in case `x` is a string}
+\item{env}{Environment in which to fetch the function in case \code{x} is a string}
+}
+\value{
+Either:
+\itemize{
+\item the function as it is passed to \code{as_function()}, whether as a
+string or a name
+\item the function derived from a formula, where the first argument
+is passed as \code{.}, \code{.x} or \code{.t}, the second argument is passed as
+\code{.y} and any other named arguments are passed as they are named
+}
 }
 \description{
-This function is a wrapper around [rlang::as_function()] which adds
-a few extra features
-
-* formulas can use `.t` in place of `.x` to be easier to understand
- in time-based functions
-* functions can take additional named arguments.
+This function is a wrapper around \code{\link[rlang:as_function]{rlang::as_function()}} which adds
+a two extra features:
+\itemize{
+\item formulas can use \code{.t} in place of \code{.x} to be easier to understand
+in time-based functions
+\item functions can take additional named arguments.
+}
 }
 \examples{
 
-f1 <- as_function(~ .t + 1)
-f1(10)
+f1 <- as_function(mean)
+f1(1:10)
 
-f2 <- as_function(~ .t + x)
+f2 <- as_function("sum")
+f2(1,2,3)
 
-f2(10, x = 2)
+f3 <- as_function(~.x + 1)
+f3(9)
+
+f4 <- as_function(~ .t + 1)
+f4(10)
+
+f5 <- as_function(~.x + .y)
+f5(1,2)
+
+f6 <- as_function(~ .t + alpha)
+f6(10, alpha = 2)
+
 }

@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg)](https://codecov.io/gh/MyKo101/rando?branch=master)
 [![R-CMD-check](https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/rando/actions)
@@ -17,11 +15,16 @@ manner that is context aware, and reproducible.
 
 ## Installation
 
+You can install the released version of rando from
+[CRAN](https://CRAN.R-project.org) with:
+
+    install.packages("rando")
+
 You can install the development version of rando from
 [Github](https://github.com/MyKo101/rando) with:
 
     install.packages("remotes")
-    install_github("MyKo101/rando")
+    remotes::install_github("MyKo101/rando")
 
 Once installed, to load `rando`, use
 
@@ -40,18 +43,18 @@ df <- tibble(id = 1:10,
        x = r_norm())
 df
 #> # A tibble: 10 x 2
-#>       id       x
-#>    <int>   <dbl>
-#>  1     1  0.550 
-#>  2     2 -0.936 
-#>  3     3 -0.925 
-#>  4     4  1.52  
-#>  5     5  0.783 
-#>  6     6  0.880 
-#>  7     7 -0.0108
-#>  8     8  1.18  
-#>  9     9 -0.937 
-#> 10    10  1.65
+#>       id      x
+#>    <int>  <dbl>
+#>  1     1 -0.365
+#>  2     2  0.173
+#>  3     3 -0.294
+#>  4     4  0.576
+#>  5     5  0.875
+#>  6     6  0.359
+#>  7     7 -0.527
+#>  8     8 -0.819
+#>  9     9 -0.990
+#> 10    10  0.518
 ```
 
 and inside of `dplyr` verbs
@@ -59,18 +62,18 @@ and inside of `dplyr` verbs
 ``` r
 mutate(df, y = r_unif())
 #> # A tibble: 10 x 3
-#>       id       x      y
-#>    <int>   <dbl>  <dbl>
-#>  1     1  0.550  0.0670
-#>  2     2 -0.936  0.192 
-#>  3     3 -0.925  0.492 
-#>  4     4  1.52   0.537 
-#>  5     5  0.783  0.904 
-#>  6     6  0.880  0.0498
-#>  7     7 -0.0108 0.267 
-#>  8     8  1.18   0.886 
-#>  9     9 -0.937  0.0680
-#> 10    10  1.65   0.711
+#>       id      x      y
+#>    <int>  <dbl>  <dbl>
+#>  1     1 -0.365 0.210 
+#>  2     2  0.173 0.354 
+#>  3     3 -0.294 0.317 
+#>  4     4  0.576 0.0695
+#>  5     5  0.875 0.125 
+#>  6     6  0.359 0.169 
+#>  7     7 -0.527 0.305 
+#>  8     8 -0.819 0.601 
+#>  9     9 -0.990 0.483 
+#> 10    10  0.518 0.300
 ```
 
 Parameters can also be used to define the number of values to return. If
@@ -79,8 +82,8 @@ of random values, unless there is a clash between two of the parameters
 
 ``` r
 r_norm(mean = 1:10)
-#>  [1] -0.4737601  1.3827246  3.0187651  3.9872645  4.7401211  8.1290709
-#>  [7]  9.1659588  7.9588496  8.3890046  8.7587110
+#>  [1] 0.4088105 2.2987041 2.2807546 3.9659070 4.5111552 5.4712253 6.5461452
+#>  [8] 6.3708207 7.7550056 8.7627581
 r_norm(mean=1:10,sd=1:2)
 #> Error: Inconsistent parameter lengths supplied to r_norm()
 ```
@@ -91,10 +94,10 @@ the `n` argument (this must be named)
 
 ``` r
 r_unif(n=20)
-#>  [1] 0.54902280 0.43830205 0.69493018 0.52395062 0.95745979 0.51598220
-#>  [7] 0.07410938 0.99425926 0.81997273 0.06844705 0.31360466 0.74898317
-#> [13] 0.42491262 0.38696562 0.29960180 0.16743854 0.30876514 0.62888848
-#> [19] 0.36905385 0.81999770
+#>  [1] 0.75427791 0.97153547 0.06031924 0.43098427 0.45223070 0.54105261
+#>  [7] 0.13882213 0.86252549 0.31421104 0.97247948 0.29288323 0.03809931
+#> [13] 0.55187415 0.51237188 0.45841500 0.12699633 0.15236584 0.08755528
+#> [19] 0.78088410 0.83223010
 ```
 
 Or, if we are generating many random numbers, we can set a default `n`
@@ -103,11 +106,10 @@ value to be used globally
 ``` r
 set_n(15)
 r_norm(mean=3)
-#>  [1] 5.1887302 1.3420891 5.3111264 2.5230458 3.8408284 2.6416782 1.6946126
-#>  [8] 2.4330382 2.8194652 1.0026499 2.6480905 0.6433512 2.8889784 2.0269286
-#> [15] 4.5824261
+#>  [1] 4.001347 2.561471 3.474956 2.312623 2.508933 5.044508 2.586922 3.051763
+#>  [9] 1.205965 3.220328 3.575350 4.599801 2.599194 4.300862 2.722302
 r_binom(size=3)
-#>  [1] 0 1 2 2 1 1 3 1 1 3 1 0 3 1 1
+#>  [1] 1 2 0 1 3 0 1 2 1 1 3 0 2 2 0
 ```
 
 ## Safer and replicable
@@ -128,9 +130,9 @@ r_norm(sd=-1)
 All `rando` functions can also take a `.seed` argument which does one of
 two things:
 
-  - If a numeric is supplied, then `rando` will set this as the random
+-   If a numeric is supplied, then `rando` will set this as the random
     seed before generating the values
-  - If a TRUE is supplied, then `rando` will randomly generate a numeric
+-   If a TRUE is supplied, then `rando` will randomly generate a numeric
     value to be used.
 
 If `.seed` is not `NULL` (the default), then this `seed` value (supplied
@@ -264,7 +266,6 @@ any cdf as an argument and produce random numbers with the associated
 distribution.
 
 ``` r
-
 my_fun <- function(x,beta=1){
   if_else(x < 0, 0, 1-exp(-beta*x))
 }

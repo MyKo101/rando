@@ -6,19 +6,22 @@
 \usage{
 extract_dots()
 }
+\value{
+No return value, called for it's side effect
+}
 \description{
-Allow the named entries in `...` to be used easily within a
+Allow the named entries in \code{...} to be used easily within a
 function by attaching them to the function's environment
 }
 \examples{
 
-\dontrun{
 f <- function(...) {
   a + b
 }
 
-# Throws an error because a and b are trapped inside ...
-f(a = 1, b = 2)
+\dontrun{
+# Throws an error because a and b are trapped inside `...`
+ f(a = 1, b = 2)
 }
 
 f <- function(...) {
@@ -26,4 +29,5 @@ f <- function(...) {
   a + b
 }
 f(a = 1, b = 2)
+
 }

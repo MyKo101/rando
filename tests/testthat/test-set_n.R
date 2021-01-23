@@ -92,6 +92,11 @@ test_that("tibble_n() extracts the correct value", {
   )
 
   expect_equal(
+    tibble::tibble(id = 1:10, x = 1, n = tibble_n())$n[1],
+    10
+  )
+
+  expect_equal(
     tibble::tibble(id = 1:15, n = 3 + tibble_n())$n[1],
     18
   )

@@ -22,32 +22,34 @@ r_nbinom(
 
 \item{mu}{vector of means}
 
-\item{n}{number of observations to generate. The [default_n()] function will
+\item{n}{number of observations to generate. The \code{\link[=default_n]{default_n()}} function will
 provide a default value within context}
 
 \item{.seed}{One of the following:
-
-* NULL (default) will not change the current seed. This is the
+\itemize{
+\item NULL (default) will not change the current seed. This is the
 usual case for generating random numbers.
-
-* A numeric value. This will be used to set the seed before generating
+\item A numeric value. This will be used to set the seed before generating
 the random numbers. This seed will be stored with the results.
-
-* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.
+\item TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.
+}
 
 To extract the random seed from a previously generated set of
-values, use `pull_seed()`}
+values, use \code{pull_seed()}}
+}
+\value{
+A numeric vector of length \code{n}
 }
 \description{
-Generates a set of Negative Binomial distributed values. Only two of `r`,
-`prob` and `mu` can be provided.
+Generates a set of Negative Binomial distributed values. Only two of \code{r},
+\code{prob} and \code{mu} can be provided.
 }
 \note{
-It is important to note that this is the number of _failures_,
-and not the number of _successes_, as in `rnbinom()`, so
-`rnbinom(prob = x,...)` is equivalent to `r_nbinom(prob=1-x,...)`
+It is important to note that this is the number of \emph{failures},
+and not the number of \emph{successes}, as in \code{rnbinom()}, so
+\code{rnbinom(prob = x,...)} is equivalent to \code{r_nbinom(prob=1-x,...)}
 }
 \examples{
 

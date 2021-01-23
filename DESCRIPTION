@@ -1,14 +1,16 @@
 Type: Package
 Package: rando
 Title: Context Aware Random Numbers
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Michael",
            family = "Barrowman",
            role = c("cre", "aut"),
            email = "myko101ab@gmail.com")
 Description: Provides random number generating functions that
-    are much more context aware than the built-in functions.
+    are much more context aware than the built-in functions. The
+    functions are also much safer, as they check for incompatible 
+    values, and more reproducible. 
 Language: en-GB
 License: MIT + file LICENSE
 URL: https://github.com/MyKo101/rando
@@ -26,3 +28,4 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)

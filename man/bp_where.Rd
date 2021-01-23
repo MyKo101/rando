@@ -14,9 +14,12 @@ this is \code{TRUE}, and \code{NA} when this is \code{FALSE}}
 
 \item{...}{arguments passed on to Blueprint, such as \code{.seed}}
 }
+\value{
+a \link[tibble:tibble-package]{tibble}
+}
 \description{
 Runs a blueprint function where a condition is true, otherwise
-returns `NA` values
+returns \code{NA} values
 }
 \examples{
 make_tbl <- blueprint(

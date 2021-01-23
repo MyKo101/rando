@@ -3,19 +3,25 @@
 \name{set_n}
 \alias{set_n}
 \alias{get_n}
-\title{Set the default value for n}
+\title{Set and Get the Default Value for n}
 \usage{
 set_n(n)
 
 get_n()
 }
 \arguments{
-\item{n}{value to set as the default n for random number generating}
+\item{n}{value to set as the default n}
+}
+\value{
+The current \emph{global} default value for n.\cr
+\code{set_n()} returns this value invisibly
 }
 \description{
-Set and get the global value for n
+Set and get the global value for n for rando functions
 }
 \examples{
 set_n(100)
+
 get_n()
+
 }

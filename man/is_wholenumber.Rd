@@ -11,10 +11,13 @@ is_wholenumber(x, tol = .Machine$double.eps^0.5)
 
 \item{tol}{tolerance to check the values}
 }
+\value{
+A logical vector the same length as \code{x}
+}
 \description{
-The built-in function `is.integer()` will check if a number is of
-the `integer` class. However, we would usually want a function
-that can check if a number is a _whole number_. It is also
+The built-in function \code{is.integer()} will check if a number is of
+the \code{integer} class. However, we would usually want a function
+that can check if a number is a \emph{whole number}. It is also
 vectorised over the input.
 }
 \examples{

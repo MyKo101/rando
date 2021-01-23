@@ -10,16 +10,26 @@ blueprint(...)
 is_blueprint(bp)
 }
 \arguments{
-\item{...}{arguments used to generate the blueprint}
+\item{...}{arguments used to generate the blueprint, see Examples.}
 
-\item{bp}{Obj to check}
+\item{bp}{Object to check}
 }
 \value{
-a function which can produce a tibble based on the provided
-blueprint
+A function that will produce a \link[tibble:tibble-package]{tibble},
+which matches the blueprint that was provided. The generated
+function will take the following arguments:
+\itemize{
+\item \code{...} - any arguments that are used within the blueprinting
+\item \code{n} - the number of rows that the resulting tibble should be
+\item \code{.seed} - the random seed to set before generating the data
+}
+
+\code{is_blueprint()} simply checks whether a function is a blueprinting
+function or not and returns a logical.
 }
 \description{
-Allows for the generation of population based on a prescribed
+Allows for the generation of population based on a prescribed set
+of rando functions.
 }
 \examples{
 make_tbl <- blueprint(
@@ -31,11 +41,15 @@ make_tbl(n = 2)
 
 make_tbl(n = 5)
 
+# Blueprints can use additional parameters:
 make_tbl2 <- blueprint(
   x = r_norm(mean = x_mu),
   y = r_unif(min = y_min, max = y_max)
 )
 
+# Which are simply passed to the generated function
 make_tbl2(x_mu = 10, y_min = -10, y_max = -5)
+
 is_blueprint(make_tbl)
+
 }

@@ -27,7 +27,11 @@
 #' @param data
 #' data set containing arguments to be passed to  `Fun`
 #'
+#'
 #' @inheritParams r_norm
+#'
+#' @return
+#' A numeric vector of length `n`
 #'
 #' @examples
 #'

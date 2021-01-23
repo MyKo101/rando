@@ -22,31 +22,33 @@ r_weibull(
 \item{...}{Unused}
 
 \item{b_scale, B_scale}{alternative definition of scale parameter, cannot be provided with
-`scale`, strictly positive.}
+\code{scale}, strictly positive.}
 
-\item{n}{number of observations to generate. The [default_n()] function will
+\item{n}{number of observations to generate. The \code{\link[=default_n]{default_n()}} function will
 provide a default value within context}
 
 \item{.seed}{One of the following:
-
-* NULL (default) will not change the current seed. This is the
+\itemize{
+\item NULL (default) will not change the current seed. This is the
 usual case for generating random numbers.
-
-* A numeric value. This will be used to set the seed before generating
+\item A numeric value. This will be used to set the seed before generating
 the random numbers. This seed will be stored with the results.
-
-* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.
+\item TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.
+}
 
 To extract the random seed from a previously generated set of
-values, use `pull_seed()`}
+values, use \code{pull_seed()}}
+}
+\value{
+A numeric vector of length \code{n}
 }
 \description{
 Generates a set of Weibull distributed values.
 }
 \details{
-This function provides alternative definitions for the `scale`
+This function provides alternative definitions for the \code{scale}
 parameter depending on the user's parametrisation of the Weibull
 distribution, with \eqn{k} = \code{shape}.
 

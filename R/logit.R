@@ -11,6 +11,9 @@
 #' @param base
 #' base of the logarithmic function to use
 #'
+#' @return
+#' A numeric vector
+#'
 #' @examples
 #'
 #' logit(0.5)
@@ -21,7 +24,7 @@
 logit <- function(prob, base = exp(1)) {
   check_must_be_strictly_between(prob, 0, 1)
   check_must_be_strictly_positive(base)
-  if (base == 1) error_glue("base cannot be 1 in logit()")
+  if (any(base == 1)) error_glue("base cannot be 1 in logit()")
   log(prob / (1 - prob), base = base)
 }
 

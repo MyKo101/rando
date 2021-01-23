@@ -16,6 +16,9 @@ invlogit(alpha, base = exp(1))
 
 \item{alpha}{vector of values to find the inverse logit of}
 }
+\value{
+A numeric vector
+}
 \description{
 Calculates the logit or the inverse logit of a value
 }
