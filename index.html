@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -90,79 +90,80 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the released version of rando from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">"rando"</span>)</span></code></pre></div>
 <p>You can install the development version of rando from <a href="https://github.com/MyKo101/rando">Github</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">install_github</span>(<span class="st">"MyKo101/rando"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"MyKo101/rando"</span>)</span></code></pre></div>
 <p>Once installed, to load <code>rando</code>, use</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(rando)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(rando)</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>With rando, generating random numbers becomes incredibly easy, as we do not need to define how many random numbers we need. <code>rando</code> will figure out how many you need based on where the number generator is being used.</p>
 <p>This works for <code>tibble()</code> declarations</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
        x <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">df</span>
 <span class="co">#&gt; # A tibble: 10 x 2</span>
-<span class="co">#&gt;       id       x</span>
-<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1  0.550 </span>
-<span class="co">#&gt;  2     2 -0.936 </span>
-<span class="co">#&gt;  3     3 -0.925 </span>
-<span class="co">#&gt;  4     4  1.52  </span>
-<span class="co">#&gt;  5     5  0.783 </span>
-<span class="co">#&gt;  6     6  0.880 </span>
-<span class="co">#&gt;  7     7 -0.0108</span>
-<span class="co">#&gt;  8     8  1.18  </span>
-<span class="co">#&gt;  9     9 -0.937 </span>
-<span class="co">#&gt; 10    10  1.65</span></code></pre></div>
+<span class="co">#&gt;       id      x</span>
+<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1 -0.365</span>
+<span class="co">#&gt;  2     2  0.173</span>
+<span class="co">#&gt;  3     3 -0.294</span>
+<span class="co">#&gt;  4     4  0.576</span>
+<span class="co">#&gt;  5     5  0.875</span>
+<span class="co">#&gt;  6     6  0.359</span>
+<span class="co">#&gt;  7     7 -0.527</span>
+<span class="co">#&gt;  8     8 -0.819</span>
+<span class="co">#&gt;  9     9 -0.990</span>
+<span class="co">#&gt; 10    10  0.518</span></code></pre></div>
 <p>and inside of <code>dplyr</code> verbs</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mutate</span><span class="op">(</span><span class="va">df</span>, y <span class="op">=</span> <span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;       id       x      y</span>
-<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1  0.550  0.0670</span>
-<span class="co">#&gt;  2     2 -0.936  0.192 </span>
-<span class="co">#&gt;  3     3 -0.925  0.492 </span>
-<span class="co">#&gt;  4     4  1.52   0.537 </span>
-<span class="co">#&gt;  5     5  0.783  0.904 </span>
-<span class="co">#&gt;  6     6  0.880  0.0498</span>
-<span class="co">#&gt;  7     7 -0.0108 0.267 </span>
-<span class="co">#&gt;  8     8  1.18   0.886 </span>
-<span class="co">#&gt;  9     9 -0.937  0.0680</span>
-<span class="co">#&gt; 10    10  1.65   0.711</span></code></pre></div>
+<span class="co">#&gt;       id      x      y</span>
+<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1 -0.365 0.210 </span>
+<span class="co">#&gt;  2     2  0.173 0.354 </span>
+<span class="co">#&gt;  3     3 -0.294 0.317 </span>
+<span class="co">#&gt;  4     4  0.576 0.0695</span>
+<span class="co">#&gt;  5     5  0.875 0.125 </span>
+<span class="co">#&gt;  6     6  0.359 0.169 </span>
+<span class="co">#&gt;  7     7 -0.527 0.305 </span>
+<span class="co">#&gt;  8     8 -0.819 0.601 </span>
+<span class="co">#&gt;  9     9 -0.990 0.483 </span>
+<span class="co">#&gt; 10    10  0.518 0.300</span></code></pre></div>
 <p>Parameters can also be used to define the number of values to return. If parameters are longer than 1, <code>rando</code> will try to return the same number of random values, unless there is a clash between two of the parameters</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt;  [1] -0.4737601  1.3827246  3.0187651  3.9872645  4.7401211  8.1290709</span>
-<span class="co">#&gt;  [7]  9.1659588  7.9588496  8.3890046  8.7587110</span>
+<span class="co">#&gt;  [1] 0.4088105 2.2987041 2.2807546 3.9659070 4.5111552 5.4712253 6.5461452</span>
+<span class="co">#&gt;  [8] 6.3708207 7.7550056 8.7627581</span>
 <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,sd<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Error: Inconsistent parameter lengths supplied to r_norm()</span></code></pre></div>
 <p>If you want to manually define the number of random numbers to be generated, there are two ways to do it. The old fashioned way: providing the <code>n</code> argument (this must be named)</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 0.54902280 0.43830205 0.69493018 0.52395062 0.95745979 0.51598220</span>
-<span class="co">#&gt;  [7] 0.07410938 0.99425926 0.81997273 0.06844705 0.31360466 0.74898317</span>
-<span class="co">#&gt; [13] 0.42491262 0.38696562 0.29960180 0.16743854 0.30876514 0.62888848</span>
-<span class="co">#&gt; [19] 0.36905385 0.81999770</span></code></pre></div>
-<p>Or, if we are generating many random numbers, we can set a default <code>n</code> value to be used globally</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span><span class="op">)</span>
+<span class="co">#&gt;  [1] 0.75427791 0.97153547 0.06031924 0.43098427 0.45223070 0.54105261</span>
+<span class="co">#&gt;  [7] 0.13882213 0.86252549 0.31421104 0.97247948 0.29288323 0.03809931</span>
+<span class="co">#&gt; [13] 0.55187415 0.51237188 0.45841500 0.12699633 0.15236584 0.08755528</span>
+<span class="co">#&gt; [19] 0.78088410 0.83223010</span></code></pre></div>
+<p>Or, if we are generating many random numbers, we can set a default <code>n</code> value to be used globally</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/set_n.html">set_n</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
 <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 5.1887302 1.3420891 5.3111264 2.5230458 3.8408284 2.6416782 1.6946126</span>
-<span class="co">#&gt;  [8] 2.4330382 2.8194652 1.0026499 2.6480905 0.6433512 2.8889784 2.0269286</span>
-<span class="co">#&gt; [15] 4.5824261</span>
+<span class="co">#&gt;  [1] 4.001347 2.561471 3.474956 2.312623 2.508933 5.044508 2.586922 3.051763</span>
+<span class="co">#&gt;  [9] 1.205965 3.220328 3.575350 4.599801 2.599194 4.300862 2.722302</span>
 <span class="fu"><a href="reference/r_binom.html">r_binom</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 0 1 2 2 1 1 3 1 1 3 1 0 3 1 1</span></code></pre></div>
+<span class="co">#&gt;  [1] 1 2 0 1 3 0 1 2 1 1 3 0 2 2 0</span></code></pre></div>
 </div>
 <div id="safer-and-replicable" class="section level2">
 <h2 class="hasAnchor">
 <a href="#safer-and-replicable" class="anchor"></a>Safer and replicable</h2>
 <p>The <code>rando</code> functions also check if parameters being supplied are viable and throws an informative error if not. This is different to the default <code>stats</code> random number generating functions, which may return a lot of <code>NaN</code> values with only a vague warning.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span>,sd<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; Warning in rnorm(n = 10, sd = -1): NAs produced</span>
 <span class="co">#&gt;  [1] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN</span>
@@ -175,7 +176,7 @@
 </ul>
 <p>If <code>.seed</code> is not <code>NULL</code> (the default), then this <code>seed</code> value (supplied or generated) will be attached to the output, and can be extracted with <code><a href="reference/seed.html">pull_seed()</a></code></p>
 <p>This allows for greater replicability in results.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>.seed <span class="op">=</span> <span class="fl">42</span><span class="op">)</span>
 <span class="co">#&gt;  [1]  1.37095845 -0.56469817  0.36312841  0.63286260  0.40426832 -0.10612452</span>
 <span class="co">#&gt;  [7]  1.51152200 -0.09465904  2.01842371 -0.06271410  1.30486965  2.28664539</span>
@@ -208,7 +209,7 @@
 <h2 class="hasAnchor">
 <a href="#blueprints" class="anchor"></a>Blueprints</h2>
 <p>In order to make simulations easier, <code>rando</code> provides the <code><a href="reference/blueprint.html">blueprint()</a></code> function. This function creates a plan for a simulated dataset using <code>rando</code> functions.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">make_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blueprint.html">blueprint</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span><span class="op">)</span>,
   y <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span><span class="op">)</span>
@@ -231,7 +232,7 @@
 <span class="co">#&gt; 4 -1.08   0.481</span>
 <span class="co">#&gt; 5  1.75   0.323</span></code></pre></div>
 <p>These blueprints can accept additional arguments and will be generated based on these arguments</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">make_tbl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blueprint.html">blueprint</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="va">x_mu</span><span class="op">)</span>,
   y <span class="op">=</span> <span class="fu"><a href="reference/r_unif.html">r_unif</a></span><span class="op">(</span>min<span class="op">=</span><span class="va">y_min</span>,max<span class="op">=</span><span class="va">y_max</span><span class="op">)</span>
@@ -245,7 +246,7 @@
 <span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 10000   10.0 -10.0 -5.00</span></code></pre></div>
 <p>This then allows for quick generation of simulation data using <code>pmap()</code> and analysis using <code>map()</code></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">make_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blueprint.html">blueprint</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">x_mu</span><span class="op">)</span>,
   y <span class="op">=</span> <span class="fu"><a href="reference/r_norm.html">r_norm</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">+</span><span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -278,9 +279,8 @@
 <h2 class="hasAnchor">
 <a href="#arbitrary-distributions" class="anchor"></a>Arbitrary Distributions</h2>
 <p>The <code><a href="reference/r_cdf.html">r_cdf()</a></code> function is a dynamic random number generator. It can take any cdf as an argument and produce random numbers with the associated distribution.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">my_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">beta</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">beta</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span>
   <span class="fu">if_else</span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">beta</span><span class="op">*</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span>
 
@@ -289,12 +289,12 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x_data</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span>,<span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-r_cdf-1.png" width="100%"> Any additional arguments used by the function, can be passed to <code><a href="reference/r_cdf.html">r_cdf()</a></code>, and will be used in determining the number of values to generate (just as in the other distribution functions above)</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/r_cdf.html">r_cdf</a></span><span class="op">(</span><span class="va">my_fun</span>,beta<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 1.59363151 0.01710057 0.51777959 0.10563731 0.15656352 0.04890561</span>
 <span class="co">#&gt;  [7] 0.05313754 0.10311007 0.01916289 0.09977221</span></code></pre></div>
 <p>Finally, <code>purrr</code>-style functions can be used for <code><a href="reference/r_cdf.html">r_cdf()</a></code> to allow for even briefer function definitions. These have been extended to allow for the use of additional named arguments to be passed to these <code>&lt;lambda&gt;</code> functions. Either <code>.x</code> or <code>.t</code> can be used for the random variable.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/set_n.html">set_n</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>
 <span class="fu"><a href="reference/r_cdf.html">r_cdf</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">.x</span><span class="op">)</span>,min<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 1.00280643 0.51202178 3.15050483 0.38757920 0.16273856 1.37652755</span>
@@ -348,7 +348,6 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/MyKo101/rando/actions"><img src="https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/MyKo101/rando?branch=master"><img src="https://codecov.io/gh/MyKo101/rando/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/MyKo101/rando/actions"><img src="https://github.com/MyKo101/rando/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>

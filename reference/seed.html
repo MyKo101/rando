@@ -85,7 +85,7 @@ them for reproducibility." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -165,6 +165,13 @@ them for reproducibility.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>gen_seed()</code> returns a single numeric value</p>
+<p><code>with_seed()</code> returns the value of the evaluated expression after
+with the relevant seed as an attribute (if required)</p>
+<p><code>pull_seed()</code> returns a single numeric value</p>
+<p><code>fix_seed()</code> and <code>set_seed()</code> do not return anything</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Random values are generated based on the current seed used by
@@ -178,27 +185,44 @@ we can make work reproducible.</p>
 <li><p><code>set_seed</code>: Sets the current seed</p></li>
 <li><p><code>fix_seed</code>: Resets the seed to re-run code</p></li>
 <li><p><code>with_seed</code>: Evaluates the expression after setting the seed.
-If <code>seed</code> is
-<code>TRUE</code>, then it first generates a feasible random seed. Results
-are output with the <code>seed</code> attached (if set), which can be later
-extracted with <code>pull_seed()</code></p></li>
+If <code>seed</code> is <code>TRUE</code>, then it first generates a seed using
+<code>gen_seed()</code>. Results are output with the <code>seed</code> attached (if set).#'</p></li>
 <li><p><code>pull_seed</code>: Extracts the seed used to generate the results of
-<code>with_seed</code></p></li>
+<code>with_seed()</code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>my_seed</span> <span class='op'>&lt;-</span> <span class='fu'>gen_seed</span><span class='op'>(</span><span class='op'>)</span>
+
+
+<span class='fu'>set_seed</span><span class='op'>(</span><span class='va'>my_seed</span><span class='op'>)</span>
+<span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] -1.0571018 -1.5072919  0.1207109 -0.1105901 -0.7025600 -0.1372067
+#&gt;  [7]  1.1565282 -2.1143908  1.3294188  0.4709546</div><div class='input'><span class='fu'>set_seed</span><span class='op'>(</span><span class='va'>my_seed</span><span class='op'>)</span>
+<span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] -1.0571018 -1.5072919  0.1207109 -0.1105901 -0.7025600 -0.1372067
+#&gt;  [7]  1.1565282 -2.1143908  1.3294188  0.4709546</div><div class='input'>
+
 <span class='fu'>fix_seed</span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1.0586429 -0.5291805 -0.2602531</div><div class='input'><span class='fu'>fix_seed</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -1.1223793  0.2976979 -0.3536340</div><div class='input'>
+<span class='fu'>fix_seed</span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1.0586429 -0.5291805 -0.2602531</div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>with_seed</span><span class='op'>(</span><span class='va'>my_seed</span>, <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -1.1223793  0.2976979 -0.3536340</div><div class='input'>
+<span class='fu'>fix_seed</span><span class='op'>(</span>reset<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -0.8487979  0.7073074  0.8885189</div><div class='input'>
+
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>with_seed</span><span class='op'>(</span><span class='va'>my_seed</span>, <span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>res</span>
-</div><div class='output co'>#&gt;  [1] -0.3632562 -1.6390605 -0.2930205  1.2217735 -0.4380276  0.5729170
-#&gt;  [7]  1.1137839 -0.4031856  0.9239176 -0.5070330
+</div><div class='output co'>#&gt;  [1] -1.0571018 -1.5072919  0.1207109 -0.1105901 -0.7025600 -0.1372067
+#&gt;  [7]  1.1565282 -2.1143908  1.3294188  0.4709546
 #&gt; attr(,"seed")
-#&gt; [1] 377728504</div><div class='input'><span class='fu'>pull_seed</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 377728504</div></pre>
+#&gt; [1] 1241451070</div><div class='input'>
+
+<span class='fu'>pull_seed</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1241451070</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

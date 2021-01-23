@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Generate a random Matrix — r_matrix" />
-<meta property="og:description" content="Generate a random matrix, given a random number generator and it's
+<meta property="og:description" content="Generate a random matrix, given a rando function and it's
 dimensions. By default, this will generate a square matrix." />
 <meta property="og:image" content="/reference/figures/logo.svg" />
 <meta property="og:image:alt" content="Provides random number generating functions that are context aware." />
@@ -85,7 +85,7 @@ dimensions. By default, this will generate a square matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -130,14 +130,14 @@ dimensions. By default, this will generate a square matrix." />
     </div>
 
     <div class="ref-description">
-    <p>Generate a random matrix, given a random number generator and it's
+    <p>Generate a random matrix, given a rando function and it's
 dimensions. By default, this will generate a square matrix.</p>
     </div>
 
     <pre class="usage"><span class='fu'>r_matrix</span><span class='op'>(</span>
   <span class='va'>engine</span>,
-  col_names <span class='op'>=</span> <span class='cn'>NULL</span>,
   row_names <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_names <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>,
   nrow <span class='op'>=</span> <span class='fu'><a href='default_n.html'>default_n</a></span><span class='op'>(</span><span class='va'>row_names</span><span class='op'>)</span>,
   ncol <span class='op'>=</span> <span class='fu'><a href='default_n.html'>default_n</a></span><span class='op'>(</span><span class='va'>col_names</span><span class='op'>)</span>,
@@ -161,51 +161,58 @@ deciding the dimensions of the result.</p></td>
       <td><p>Unused</p></td>
     </tr>
     <tr>
-      <th>ncol, nrow</th>
-      <td><p>dimensions of the matrix. The [default_n()] function will provide
+      <th>nrow, ncol</th>
+      <td><p>dimensions of the matrix. The <code><a href='default_n.html'>default_n()</a></code> function will provide
 a default value within context.</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A matrix with <code>nrow</code> rows and <code>ncol</code> columnes an a type as
+decided by the function passed to <code>engine</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_norm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             [,1]       [,2]       [,3]       [,4]        [,5]
-#&gt; [1,] -0.86434980  0.9480316  0.8769131  0.8408018  0.88862899
-#&gt; [2,] -1.09147035 -0.1742460 -1.1489039  0.7915341  0.01321448
-#&gt; [3,] -0.03705146 -1.1062360 -1.1376128 -0.1688489  0.22533951
-#&gt; [4,]  0.81005379 -0.9459850 -1.4372467  0.6127221 -0.72991521
-#&gt; [5,] -0.49935541  0.2890896 -0.4941435 -0.7711589 -1.22248707</div><div class='input'>
+</div><div class='output co'>#&gt;            [,1]       [,2]        [,3]       [,4]       [,5]
+#&gt; [1,] -0.4874118  1.4289691 -0.56672262  1.2491076  1.1142686
+#&gt; [2,] -0.3984335 -0.4799557 -1.05057219 -0.5487269  0.8469618
+#&gt; [3,] -0.6007733  1.2951984 -0.94630671 -1.7103311  0.3908726
+#&gt; [4,] -0.2098360  0.1650741 -0.07517996 -0.7009860  1.0536553
+#&gt; [5,]  0.4855064  0.3254972  0.18792650  1.8978270 -0.5554843</div><div class='input'>
+
 <span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_unif</span>,min<span class='op'>=</span><span class='fl'>1</span>,max<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;          [,1]     [,2]     [,3]     [,4]     [,5]
-#&gt; [1,] 1.657924 1.289282 1.541678 1.730600 1.769155
-#&gt; [2,] 1.652054 1.637585 1.484831 1.134166 1.176350
-#&gt; [3,] 1.226323 1.264539 1.764295 1.048398 1.110759
-#&gt; [4,] 1.853980 1.386268 1.961027 1.703607 1.938342
-#&gt; [5,] 1.435607 1.619194 1.270585 1.147214 1.846471</div><div class='input'>
+#&gt; [1,] 1.264539 1.764295 1.048398 1.110759 1.089322
+#&gt; [2,] 1.386268 1.961027 1.703607 1.938342 1.785374
+#&gt; [3,] 1.619194 1.270585 1.147214 1.846471 1.226957
+#&gt; [4,] 1.541678 1.730600 1.769155 1.571144 1.448178
+#&gt; [5,] 1.484831 1.134166 1.176350 1.679093 1.161228</div><div class='input'>
 
 <span class='fu'>r_matrix</span><span class='op'>(</span><span class='va'>r_norm</span>,mean<span class='op'>=</span><span class='fl'>10</span>,sd<span class='op'>=</span><span class='fl'>2</span>,ncol<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           [,1]      [,2]
-#&gt; [1,] 10.358573  8.179408
-#&gt; [2,]  7.310119 10.819924
-#&gt; [3,]  8.502191  4.359896
-#&gt; [4,]  8.021150 10.650422
-#&gt; [5,]  8.304066  8.353467</div><div class='input'>
+#&gt; [1,]  8.139429  5.640087
+#&gt; [2,]  9.270298 10.841749
+#&gt; [3,] 10.307745  9.284943
+#&gt; [4,] 10.826310  8.706277
+#&gt; [5,] 14.961647  9.899716</div><div class='input'>
 
 </div></pre>
   </div>

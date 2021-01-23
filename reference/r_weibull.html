@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -160,31 +160,36 @@
     <tr>
       <th>b_scale, B_scale</th>
       <td><p>alternative definition of scale parameter, cannot be provided with
-`scale`, strictly positive.</p></td>
+<code>scale</code>, strictly positive.</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector of length <code>n</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function provides alternative definitions for the `scale`
+    <p>This function provides alternative definitions for the <code>scale</code>
 parameter depending on the user's parametrisation of the Weibull
 distribution, with \(k\) = <code>shape</code>.</p>
 <p>Using \(\lambda\) = <code>scale</code>:
@@ -205,20 +210,20 @@ $$</p>
 <span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.7092116 1.0338147 1.0727767 1.1037832 0.9912354</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.8865704 1.0200517 1.0958044 1.0260531 0.7680493</div><div class='input'>
 <span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 2.114905 3.167989 2.952347 2.142573 1.875146 1.784423 2.128818 2.245361
-#&gt;  [9] 2.123618 1.726241</div><div class='input'>
+</div><div class='output co'>#&gt;  [1] 0.2524544 1.7274966 1.6419339 2.2348380 1.7505143 2.4794669 1.5389722
+#&gt;  [8] 1.8869082 2.1956387 1.8059748</div><div class='input'>
 <span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, scale <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 1.2727650 1.7473441 0.9700291 1.4782726 1.5386948 1.4878244 1.7209315
-#&gt;  [8] 1.3851514 2.1523174 1.7177319</div><div class='input'><span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, b_scale <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]   2.446011   3.927292   9.031180  16.238249  30.949570  57.225784
-#&gt;  [7] 118.123608 247.495152 533.769066 907.848075</div><div class='input'><span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, B_scale <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 0.6098060 0.7900149 0.5447569 0.2584894 0.3305222 0.4761741 0.4594650
-#&gt;  [8] 0.5285402 0.4643262 0.5688097</div><div class='input'>
+</div><div class='output co'>#&gt;  [1] 0.8732530 0.5726726 2.1498576 1.6139623 1.7268821 1.7439175 1.8271393
+#&gt;  [8] 1.3451038 2.1328478 2.0677402</div><div class='input'><span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, b_scale <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1]    1.304976    5.681779    4.704802   16.669463   32.375063   65.276567
+#&gt;  [7]  100.685392  275.002249  526.212190 1025.086852</div><div class='input'><span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, B_scale <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] 1.3303911 0.3637182 0.6763637 0.5326363 0.5965120 0.3347166 0.5281237
+#&gt;  [8] 0.3356367 0.5074380 0.4914817</div><div class='input'>
 <span class='fu'>r_weibull</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 1.664832 1.909003 2.175243 1.805975 1.840946 1.557418 2.043826 1.835589
-#&gt;  [9] 1.858431 1.842161</div></pre>
+</div><div class='output co'>#&gt;  [1] 1.567424 1.676977 1.476552 2.029828 1.627594 2.037763 1.960492 1.957837
+#&gt;  [9] 1.966667 1.653470</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -147,39 +147,44 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector of length <code>n</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='fu'>r_fdist</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.06689711 0.57181084 0.03425753 0.16763972 0.10533533</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 5.0701710 0.5572999 0.2667419 0.2316231 0.6843606</div><div class='input'>
 <span class='fu'>r_fdist</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 2.5605343 0.2776348 0.2496134 0.3612939 0.8667305 1.7840388 1.1439825
-#&gt;  [8] 0.2002174 0.5864387 9.2571267</div><div class='input'>
+</div><div class='output co'>#&gt;  [1]  2.7223878 45.2050232  5.5639046  0.4528410  1.2071669  0.6649001
+#&gt;  [7]  0.1900588  0.5821318  9.0677616  2.2860664</div><div class='input'>
 <span class='fu'>r_fdist</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2.2860664 5.7205764 5.1206881 0.3449613 0.3121254</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 5.7205764 5.1206881 0.3449613 0.3121254 2.1341498</div><div class='input'>
 <span class='fu'>r_fdist</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  2.1341498  0.2784492  1.8167699  4.1032534  0.8739764  1.3142012
-#&gt;  [7] 25.8332637  1.5960910  0.4880101  0.1400232</div></pre>
+</div><div class='output co'>#&gt;  [1]  0.2784492  1.8167699  4.1032534  0.8739764  1.3142012 25.8332637
+#&gt;  [7]  1.5960910  0.4880101  0.1400232  6.9435143</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

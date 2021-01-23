@@ -47,9 +47,9 @@
 
 
 <meta property="og:title" content="Evaluate Expressions until not NULL — null_switch" />
-<meta property="og:description" content="Evaluates expressions until one that is not `NULL` is encountered
-and returns that. Expressions after the non-`NULL` result are not
-evaluated. If all expressions are `NULL`, it will return `NULL`" />
+<meta property="og:description" content="Evaluates expressions until one that is not NULL is encountered
+and returns that. Expressions after the first non-NULL result are not
+evaluated. If all expressions are NULL, it will return NULL" />
 <meta property="og:image" content="/reference/figures/logo.svg" />
 <meta property="og:image:alt" content="Provides random number generating functions that are context aware." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +86,7 @@ evaluated. If all expressions are `NULL`, it will return `NULL`" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -131,9 +131,9 @@ evaluated. If all expressions are `NULL`, it will return `NULL`" />
     </div>
 
     <div class="ref-description">
-    <p>Evaluates expressions until one that is not `NULL` is encountered
-and returns that. Expressions after the non-`NULL` result are not
-evaluated. If all expressions are `NULL`, it will return `NULL`</p>
+    <p>Evaluates expressions until one that is not <code>NULL</code> is encountered
+and returns that. Expressions after the first non-<code>NULL</code> result are not
+evaluated. If all expressions are <code>NULL</code>, it will return <code>NULL</code></p>
     </div>
 
     <pre class="usage"><span class='fu'>null_switch</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
@@ -147,6 +147,10 @@ evaluated. If all expressions are `NULL`, it will return `NULL`</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The result of evaluating one of the expressions. Will only be
+<code>NULL</code> if they <em>all</em> evaluated to <code>NULL</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>

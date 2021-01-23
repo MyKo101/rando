@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -147,37 +147,42 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector of length <code>n</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='fu'>r_tdist</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  1.7943454  0.2527781  0.1107340 -0.3804084 -0.5000668</div><div class='input'>
+</div><div class='output co'>#&gt; [1]  2.2140826  1.6408442 -0.3098129  0.3402945 -0.6886386</div><div class='input'>
 <span class='fu'>r_tdist</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  0.33378486 10.01124593  0.28127739  0.24942545  2.40499244 -0.56608191
-#&gt;  [7] -0.07760687  0.50866280  1.10211621 -0.48439037</div><div class='input'>
+</div><div class='output co'>#&gt;  [1] -0.69300596  1.34329219  1.14882681 -0.77407169  0.03398438  0.15930033
+#&gt;  [7]  0.94094363 -0.44624802 -0.40464933 -0.19402149</div><div class='input'>
 <span class='fu'>r_tdist</span><span class='op'>(</span><span class='fl'>10</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] -0.9881336 -2.1906968  0.7648654  0.8322040 -0.4379597 -0.4109847
-#&gt;  [7] -0.1940215 -1.1282621  0.4642791 -0.7047607</div></pre>
+</div><div class='output co'>#&gt;  [1] -1.12826210  0.46427911 -0.70476069  1.46582240 -0.28822105 -0.27637620
+#&gt;  [7] -0.60889543 -0.86523567 -0.05853521 -0.39711420</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="Blueprint based on a condition — bp_where" />
 <meta property="og:description" content="Runs a blueprint function where a condition is true, otherwise
-returns `NA` values" />
+returns NA values" />
 <meta property="og:image" content="/reference/figures/logo.svg" />
 <meta property="og:image:alt" content="Provides random number generating functions that are context aware." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +85,7 @@ returns `NA` values" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ returns `NA` values" />
 
     <div class="ref-description">
     <p>Runs a blueprint function where a condition is true, otherwise
-returns `NA` values</p>
+returns <code>NA</code> values</p>
     </div>
 
     <pre class="usage"><span class='fu'>bp_where</span><span class='op'>(</span><span class='va'>condition</span>, <span class='va'>bp</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -154,6 +154,9 @@ this is <code>TRUE</code>, and <code>NA</code> when this is <code>FALSE</code></
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>make_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='blueprint.html'>blueprint</a></span><span class='op'>(</span>

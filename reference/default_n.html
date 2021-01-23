@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the Default value for n in Context — default_n • rando</title>
+<title>Find the Default Value for n in Context — default_n • rando</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Find the Default value for n in Context — default_n" />
+<meta property="og:title" content="Find the Default Value for n in Context — default_n" />
 <meta property="og:description" content="Checks for various information surrounding the call to this function
 to figure out what value for n should be used" />
 <meta property="og:image" content="/reference/figures/logo.svg" />
@@ -85,7 +85,7 @@ to figure out what value for n should be used" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -124,8 +124,8 @@ to figure out what value for n should be used" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the Default value for n in Context</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MyKo101/rando/blob/master/R/set_n.R'><code>R/set_n.R</code></a></small>
+    <h1>Find the Default Value for n in Context</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MyKo101/rando/blob/master/R/default_n.R'><code>R/default_n.R</code></a></small>
     <div class="hidden name"><code>default_n.Rd</code></div>
     </div>
 
@@ -149,36 +149,89 @@ to figure out what value for n should be used</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>parameters to check the length of</p></td>
+      <td><p>parameters to check the lengths of</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-<ul>
-<li><p><code>default_n</code>: Checks for the default value of n in a
-context aware manner.</p></li>
-<li><p><code>blueprint_n</code>: If we are inside of a blueprint, then use the
-n that is passed to the blueprinting function</p></li>
-<li><p><code>tibble_n</code>: If we are inside of a call to  <code>tibble()</code>,
-it returns the number of rows in the <code>tibble</code>, otherwise
-<code>NULL</code></p></li>
-<li><p><code>dplyr_n</code>: If we are in <code>dplyr</code> verb function, it
-returns the number of rows in the current data, otherwise <code>NULL</code></p></li>
-<li><p><code>args_n</code>: Checks the lengths of the non-<code>NULL</code>
-arguments passed to it. Errors if they are inconsistent.</p></li>
+    <p>The context aware value for n</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>default_n()</code> function will run through the other
+functions found here until it finds a viable value for n. <br /><br />
+It first checks for contxt to see if calls external to <code>default_n()</code>
+indicate which value should be used:</p><ul>
+<li><p><code>blueprint_n()</code> - Checks if the function is being called
+within a blueprinting function, and returns the value supplied to
+that function, see <code><a href='blueprint.html'>blueprint()</a></code>.</p></li>
+<li><p><code>tibble_n()</code> - Checks if the function is being called
+within the declaration of a tibble. It then checks the lengths of
+the other arguments being passed to the call. If you want to
+specify how many rows should be generate you can use the <code>.rows</code>
+argument in your <code>tibble()</code> call, see <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble()</a></code></p></li>
+<li><p><code>dplyr_n()</code> - Checks if the function is being used within a
+<code><a href='https://dplyr.tidyverse.org/reference/dplyr-package.html'>dplyr</a></code> verb, if so, it returns the value of
+<code><a href='https://dplyr.tidyverse.org/reference/context.html'>n()</a></code></p></li>
 </ul>
 
+<p>It then checks the lengths of the arguments supplied via <code>...</code>,
+if there is a discrepancy between these arguments and the context
+aware value found above, it will throw an error.</p>
+<p>If all the above values return <code>1</code> or <code>NULL</code>, we then check for
+a global n assigned by <code><a href='set_n.html'>set_n()</a></code>, if none is set then <code>default_n()</code>
+will return <code>1</code>.</p>
+
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, n <span class='op'>=</span> <span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='co'># Global Values:</span>
+<span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+<span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10</div><div class='input'>
+<span class='co'># In a blueprint:</span>
+<span class='va'>bp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='blueprint.html'>blueprint</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span><span class='op'>)</span>,n<span class='op'>=</span><span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>bp</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 2</span><span>
+#&gt;         x     n
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>  1.07       7
+#&gt; </span><span style='color: #555555;'>2</span><span>  0.070</span><span style='text-decoration: underline;'>0</span><span>     7
+#&gt; </span><span style='color: #555555;'>3</span><span> -</span><span style='color: #BB0000;'>0.639</span><span>      7
+#&gt; </span><span style='color: #555555;'>4</span><span> -</span><span style='color: #BB0000;'>0.050</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>     7
+#&gt; </span><span style='color: #555555;'>5</span><span> -</span><span style='color: #BB0000;'>0.251</span><span>      7
+#&gt; </span><span style='color: #555555;'>6</span><span>  0.445      7
+#&gt; </span><span style='color: #555555;'>7</span><span>  2.76       7</div><div class='input'><span class='va'>bp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='blueprint.html'>blueprint</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span><span class='op'>)</span>,n<span class='op'>=</span><span class='fu'>blueprint_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>bp</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 2</span><span>
+#&gt;         x     n
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>  0.046</span><span style='text-decoration: underline;'>5</span><span>     8
+#&gt; </span><span style='color: #555555;'>2</span><span>  0.578      8
+#&gt; </span><span style='color: #555555;'>3</span><span>  0.118      8
+#&gt; </span><span style='color: #555555;'>4</span><span> -</span><span style='color: #BB0000;'>1.91</span><span>       8
+#&gt; </span><span style='color: #555555;'>5</span><span>  0.862      8
+#&gt; </span><span style='color: #555555;'>6</span><span> -</span><span style='color: #BB0000;'>0.243</span><span>      8
+#&gt; </span><span style='color: #555555;'>7</span><span> -</span><span style='color: #BB0000;'>0.206</span><span>      8
+#&gt; </span><span style='color: #555555;'>8</span><span>  0.019</span><span style='text-decoration: underline;'>2</span><span>     8</div><div class='input'>
+<span class='co'># In a tibble:</span>
+<span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, n <span class='op'>=</span> <span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;      id     n
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     3
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     3
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3</div><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     3</div><div class='input'><span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, n <span class='op'>=</span> <span class='fu'>tibble_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;      id     n
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     5
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     5
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     5
+#&gt; </span><span style='color: #555555;'>4</span><span>     4     5
+#&gt; </span><span style='color: #555555;'>5</span><span>     5     5</div><div class='input'>
+<span class='co'># In a dplyr verb:</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
 <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>df</span>, n <span class='op'>=</span> <span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;      id     n
@@ -186,39 +239,23 @@ arguments passed to it. Errors if they are inconsistent.</p></li>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     4
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     4
 #&gt; </span><span style='color: #555555;'>3</span><span>     3     4
-#&gt; </span><span style='color: #555555;'>4</span><span>     4     4</div><div class='input'><span class='fu'>default_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'>default_n</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='va'>bp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='blueprint.html'>blueprint</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='r_norm.html'>r_norm</a></span><span class='op'>(</span><span class='op'>)</span>,n<span class='op'>=</span><span class='fu'>blueprint_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>bp</span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 2</span><span>
-#&gt;          x     n
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>  1.07      10
-#&gt; </span><span style='color: #555555;'> 2</span><span>  0.070</span><span style='text-decoration: underline;'>0</span><span>    10
-#&gt; </span><span style='color: #555555;'> 3</span><span> -</span><span style='color: #BB0000;'>0.639</span><span>     10
-#&gt; </span><span style='color: #555555;'> 4</span><span> -</span><span style='color: #BB0000;'>0.050</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>    10
-#&gt; </span><span style='color: #555555;'> 5</span><span> -</span><span style='color: #BB0000;'>0.251</span><span>     10
-#&gt; </span><span style='color: #555555;'> 6</span><span>  0.445     10
-#&gt; </span><span style='color: #555555;'> 7</span><span>  2.76      10
-#&gt; </span><span style='color: #555555;'> 8</span><span>  0.046</span><span style='text-decoration: underline;'>5</span><span>    10
-#&gt; </span><span style='color: #555555;'> 9</span><span>  0.578     10
-#&gt; </span><span style='color: #555555;'>10</span><span>  0.118     10</div><div class='input'><span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, n <span class='op'>=</span> <span class='fu'>tibble_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
-#&gt;      id     n
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     3
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     3
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3</div><div class='input'><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>df</span>, n <span class='op'>=</span> <span class='fu'>dplyr_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; </span><span style='color: #555555;'>4</span><span>     4     4</div><div class='input'><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>df</span>, n <span class='op'>=</span> <span class='fu'>dplyr_n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;      id     n
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     4
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     4
 #&gt; </span><span style='color: #555555;'>3</span><span>     3     4
-#&gt; </span><span style='color: #555555;'>4</span><span>     4     4</div><div class='input'><span class='fu'>args_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 3</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>args_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+#&gt; </span><span style='color: #555555;'>4</span><span>     4     4</div><div class='input'>
+<span class='co'># From arguments:</span>
+<span class='fu'>default_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'>default_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"c"</span>,<span class='st'>"d"</span>,<span class='st'>"e"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'>args_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span>,<span class='st'>"d"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3 3</div><div class='input'><span class='fu'>args_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3 4</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>default_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,n<span class='op'>=</span><span class='fu'>default_n</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></span></pre>

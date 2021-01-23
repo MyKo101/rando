@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -147,38 +147,43 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector of length <code>n</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='fu'>r_unif</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.82862712 0.00850929 0.08882124 0.91988013 0.63839645</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.48457769 0.60384572 0.21268102 0.08015722 0.17985428</div><div class='input'>
 <span class='fu'>r_unif</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 3.084929 5.510178 3.805131 5.889549 9.875584</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 4.974798 4.646017 5.330622 8.460869 8.709769</div><div class='input'>
 <span class='fu'>r_unif</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 4.631997 7.790074 5.696329 6.334531 5.648209</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 7.873622 8.752798 7.936522 9.690653 5.721459</div><div class='input'>
 <span class='fu'>r_unif</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 0.2847507 0.1307439 0.4740490 0.9800092 0.1683404 0.1815383 0.8789390
-#&gt;  [8] 0.6766600 0.5074436 0.4814087</div></pre>
+</div><div class='output co'>#&gt;  [1] 0.8038033 0.2943441 0.3813734 0.2372413 0.3461421 0.4290002 0.5998603
+#&gt;  [8] 0.5655163 0.4661924 0.2334880</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -85,7 +85,7 @@ arbitrary cumulative distribution function" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -153,44 +153,49 @@ arbitrary cumulative distribution function</p>
     </tr>
     <tr>
       <th>min, max</th>
-      <td><p>range values for the domain of the `Fun`</p></td>
+      <td><p>range values for the domain of the <code>Fun</code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments that can be passed to `Fun`</p></td>
+      <td><p>arguments that can be passed to <code>Fun</code></p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>data set containing arguments to be passed to  `Fun`</p></td>
+      <td><p>data set containing arguments to be passed to  <code>Fun</code></p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector of length <code>n</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The `Fun` argument accepts `purrr` style inputs.
+    <p>The <code>Fun</code> argument accepts <code>purrr</code> style inputs.
 Must be vectorised, defined on the whole Real line and return a
 single numeric value between 0 and 1 for any input. The random
-variable will be passed to `Fun` as the first argument.
+variable will be passed to <code>Fun</code> as the first argument.
 This means that R's argument matching can be used with named
-arguments in `...` if a different positional argument is wanted.</p>
+arguments in <code>...</code> if a different positional argument is wanted.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -201,13 +206,13 @@ arguments in `...` if a different positional argument is wanted.</p>
 <span class='op'>}</span>
 
 <span class='fu'>r_cdf</span><span class='op'>(</span><span class='va'>my_fun</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2.5011599 1.1331379 1.0940850 1.4107525 0.7827103</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1.2980998 1.0152400 0.5048573 3.2060206 0.3547609</div><div class='input'>
 
 <span class='fu'>r_cdf</span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>1</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>.x</span><span class='op'>)</span>, min <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.2734959 0.7110894 0.5400240 1.2980998 1.0152400</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.05150437 0.85846782 0.24577975 0.13450980 2.78308988</div><div class='input'>
 <span class='fu'>r_cdf</span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>1</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>.x</span> <span class='op'>*</span> <span class='va'>beta</span><span class='op'>)</span>, beta <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, min <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 0.50485730 1.60301328 0.11824965 0.01288056 0.17169118 0.04096627
-#&gt;  [7] 0.01921058 0.34788251 0.17953515 0.14190078</div></pre>
+</div><div class='output co'>#&gt;  [1] 1.61582828 0.70951581 0.25349259 0.19785762 0.02016425 0.08192658
+#&gt;  [7] 0.02701879 0.14669299 0.12494922 0.29242635</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

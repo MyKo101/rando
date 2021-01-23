@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rando</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
     </tr>
     <tr>
       <th>weights</th>
-      <td><p>a vector of weights, must be the same length as `sample`,
+      <td><p>a vector of weights, must be the same length as <code>sample</code>,
 between 0 &amp; 1</p></td>
     </tr>
     <tr>
@@ -152,40 +152,45 @@ between 0 &amp; 1</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of observations to generate. The [default_n()] function will
+      <td><p>number of observations to generate. The <code><a href='default_n.html'>default_n()</a></code> function will
 provide a default value within context</p></td>
     </tr>
     <tr>
       <th>.seed</th>
-      <td><p>One of the following:</p>
-<p>* NULL (default) will not change the current seed. This is the
-usual case for generating random numbers.</p>
-<p>* A numeric value. This will be used to set the seed before generating
-the random numbers. This seed will be stored with the results.</p>
-<p>* TRUE. A random seed value will be generated and set as the seed
- before the results are generated. Again, this will be stored with
- the results.</p>
+      <td><p>One of the following:</p><ul>
+<li><p>NULL (default) will not change the current seed. This is the
+usual case for generating random numbers.</p></li>
+<li><p>A numeric value. This will be used to set the seed before generating
+the random numbers. This seed will be stored with the results.</p></li>
+<li><p>TRUE. A random seed value will be generated and set as the seed
+before the results are generated. Again, this will be stored with
+the results.</p></li>
+</ul>
+
 <p>To extract the random seed from a previously generated set of
-values, use `pull_seed()`</p></td>
+values, use <code><a href='seed.html'>pull_seed()</a></code></p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A vector of length <code>n</code> of the same type as <code>sample</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='set_n.html'>set_n</a></span><span class='op'>(</span><span class='fl'>15</span><span class='op'>)</span>
 
 <span class='fu'>r_sample</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span>, <span class='st'>"yellow"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "blue"   "blue"   "red"    "yellow" "blue"   "blue"   "red"    "red"   
-#&gt;  [9] "blue"   "yellow" "red"    "red"    "yellow" "blue"   "blue"  </div><div class='input'>
+</div><div class='output co'>#&gt;  [1] "red"    "blue"   "yellow" "red"    "red"    "yellow" "blue"   "blue"  
+#&gt;  [9] "red"    "red"    "red"    "red"    "red"    "red"    "red"   </div><div class='input'>
 <span class='fu'>r_sample</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span>, <span class='st'>"yellow"</span><span class='op'>)</span>,
   weights <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "red"  "red"  "red"  "red"  "red"  "red"  "red"  "blue" "red"  "red" 
-#&gt; [11] "red"  "red"  "red"  "red"  "red" </div><div class='input'>
+</div><div class='output co'>#&gt;  [1] "blue"   "red"    "red"    "red"    "red"    "red"    "red"    "red"   
+#&gt;  [9] "yellow" "red"    "blue"   "blue"   "red"    "blue"   "red"   </div><div class='input'>
 <span class='fu'>r_sample</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span>, <span class='st'>"yellow"</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "blue"   "yellow" "blue"   "blue"   "red"    "blue"   "red"    "blue"  
-#&gt;  [9] "red"    "blue"  </div></pre>
+</div><div class='output co'>#&gt;  [1] "blue"   "red"    "blue"   "blue"   "blue"   "yellow" "blue"   "blue"  
+#&gt;  [9] "yellow" "blue"  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
