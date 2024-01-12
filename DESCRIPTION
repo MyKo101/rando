@@ -13,7 +13,7 @@ Description: Provides random number generating functions that
     values, and more reproducible. 
 Language: en-GB
 License: MIT + file LICENSE
-URL: https://github.com/MyKo101/rando
+URL: https://github.com/MyKo101/rando, https://michaelbarrowman.co.uk/rando/
 BugReports: https://github.com/MyKo101/rando/issues
 Imports: 
     dplyr,
